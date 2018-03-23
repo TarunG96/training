@@ -1,14 +1,97 @@
-Learned the following commands upto now:
-cd
-ls
-mkdir
-rmdir
-cp
-mv
-rename
-file
-grep
-ifconfig
-ip
-ping
-netstat
+Have learned about the following commands upto  now 
+
+mkdir 	 :  	make directory using both absolute 								and relative paths  
+				mkdir tarun                  (absolute path)
+				mkdir tarun/demo       (relative path)
+
+rmdir           :	removing directory using both variations
+
+pwd		 :	print working directory
+
+cd		 :	change directory
+				cd ~	Brings you to your home directory.
+				cd -	Brings you to your previous directory of the current 					directory.
+				cd ..	Brings you to the parent directory of current directory.
+				cd /	It takes you to the entire system's root directory.
+
+Tab key	 :	used for path completion
+
+touch	 : 	to create empty files    touch <filename>
+				touch -a	To change file access and modification time.
+				touch -m	It is used to only modify time of a file.
+				touch -r	To update time of one file with reference to the 							other file.
+				touch -t	To create a file by specifying the time.
+				touch -c	It does't create n empty file.
+
+rm		 :	to remove a directory/file using both variations 
+				rm <file name>
+
+cp		 :	to copy a file/directory using both variations
+			cp -r	 :   To copy a directory along with its sub dirctories.
+			cp file1 file 2 directory name :	To copy multiple file or directories in 								a directory.
+			cp -backup	   To backup the existing file before over writing it.
+			cp -i	              Asks for confirmtion.
+			cp -l	  	   To create hard link file.
+			cp -p	   	   Preserves attribute of a file.
+
+ls		 :	 show the full list or content of your directory 
+			     ls-a	also displays hidden files
+			     ls-l		displays in long-list format
+			     ls-lh	displays file size in human readable format
+			     ls-lhs	displays file size in desc order acc to size
+			     ls-n	displays group id and owner id
+			     ls-r	print list in reverse order
+			     ls ~	gives contents of home directory
+			     ls ../	gives contents of parent directory
+			     ls -R	gives contents of sub-directories also
+
+mv		 :	 move/rename existing file/directory
+				mv <old name>  <new name>		
+
+head		 :	 displays starting contents of file (default 10)
+				head -n <filename>		displays top n contents
+				head -c <number><filename>	counts the number of bytes of file
+			 
+tail		 :	 displays ending contents of file (default 10)
+				tail -n <filename>		displays bottom n contents
+				tail -c <number><filename>	counts the number of bytes of file
+
+
+
+cat		 :	 to display a file	
+				cat > [fileName]		To create a file.
+				cat [oldfile] > [newfile]	To copy content from older to new 									file.
+				cat [file1 file2 and so on] > [new file name]	To concatenate 								contents of multiple files into one.
+				cat -n/cat -b [fileName]		To display line numbers.
+				cat -e [fileName]	To display $ character at the end of each 								line.
+				cat [fileName] <<EOF	Used as page end marker.
+
+grep		 :	 to search for a pattern in the file
+				grep <searchword>  <filename>
+				grep -i	filters output in case insensitive manner
+				grep -A	display line after the result
+				grep -B	display line before the result
+				grep -C	display line after and before the result
+
+
+sort		 :	 sort file contents in alphabetical order
+			 	sort -k	to sort a particular column
+							sort -k<columnnumber><filename>
+				 sort -n -k	numeric sorting
+
+date		 :	 to display current date 
+
+time 		 :	 to display current time
+
+cal		 :	 to display calender 
+			  	cal <month> <year>
+	
+
+Networking commands :  	ip
+				ifcongif
+				ping
+				netstat
+				ss
+				dig
+			
+Vi editor commands	: 
