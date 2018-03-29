@@ -1,0 +1,1914 @@
+
+POSTGRES 
+
+Installation 
+sudo apt-get install postgresql postgresql-contrib
+service postgresql (start/stop/restart/status/reload/force reload)
+//default user = postgres 
+sudo su postgres
+		
+psql		:	to enter sql mode
+\l		:	to list out all the present databases
+\du		:	to list out user
+\c dbname	:	to connect to a particular database
+\d		:	to view the tables in the database
+\d tablename  :	to view a particular table in the database
+\q		:	to exit fom psql
+
+alter user postgres with password 'new password' ;    :  to change user password
+create user 'username' with password 'your password'   : to create a  new user
+alter user 'username' with superuser	: 	to provide privileges to user
+drop user  'username'	:	to remove a user
+
+DATA TYPES
+
+1. Numeric Types	:	small int 	2 bytes
+				integer	4 bytes
+				bigint		8 bytes
+				decimal	variable
+				numeric	variable
+				real 		4 bytes
+				double precision   8 bytes
+				small serial    2 bytes
+				serial 		 4 bytes
+				big serial 	  8 bytes
+
+2. Character Types	:	varchar(n)	variable length with limit
+				char(n)	fixed length , blank padded
+				text		variable unlimited length
+
+3.  Monetary Types	:	store a currency amount with a fixed fractional precision
+				money		8  bytes
+
+4. Binary Types	:	bytea 		1 or 4 byte plus the actual binary string
+
+5. Boolean Types	:	boolean	1 byte		states true or false
+
+6. Date/Time Types	:	Dates are counted according to Gregorian calendar. Here all types 					have resolution of 1 microsecond/4 digits except date type, whose 					resolution is day.
+				
+				timestamp[(p)]		8 bytes
+				[without time zone]
+				timestamp[(p)]		8 bytes
+				[with time zone]		
+				date				4 bytes
+				time[(p)]			8 bytes
+				(without time zone)
+				time[(p)]			12 bytes
+				(with time zone)
+				interval[field] [(p)]		12 bytes
+
+7. Enumerated Type	:	They comprise a static orderd set of values. They need to be created 				first using the create type command.
+				create type week as enum('mon','tue','wed'.....'sun');
+
+8. Geometric Type	:	point		16 bytes		point on plane
+				line		32 bytes		infinite line
+				lseg		32 bytes		finite line segment
+				box		32 bytes		rectangular box
+				path		16+16n bytes		closed path
+				path		16+16n bytes		open path
+				polygon	40+16n		polygon
+				circle		24 bytes		circle
+
+PRIMARY KEY	: => uniqely defines each record in a database
+			  =>  must contain null values, cannot contain  null values.
+			  =>  table can have only one primary key which can point to one or 				         more fields.
+
+FOREIGN KEY  :  =>  used to link two tables together.
+			   =>  it's a field in one table referring to primary key in another table.
+			   =>  the table containing foreign key is called as the child table.
+
+
+
+
+
+
+DATABASE OPERATIONS :
+
+create database 'dbname'	: to create a database
+	for example	 	create database sample;
+create database 'dbname'	: to remove the database
+
+TABLE CREATION :
+create table 'tablename'	: to create a table
+				create  table table_name(
+ 				column1 datatype,
+  				 column2 datatype,
+   			  				 .....
+				 columnN datatype,
+   				PRIMARY KEY( one or more columns )
+				);
+
+for example :
+	create table company (
+	compid int primary key not null,
+	name  varchar(20) not null,
+	age int not null,
+	address varchar(30) not null,
+	salary real
+	);
+
+	create table department(
+	depid int primary key not null,
+	dept varchar(30) not null,
+	empid int not null
+	);
+
+INSERTION  :	INSERT INTO TABLE_NAME VALUES (value1,value2,...valueN); 	
+			
+for example  :
+		insert into company values(1,'tarun',22,'faridabad',1500);
+		insert into company values(2,'tyagi',21,'faridabad',2000);
+		insert into company values(3,'nikhil',20,'palwal',2500);
+
+		insert into department values(1,'sales',1);
+		insert into department values(2,'purchase',2);
+		insert into department values(3,'production',3);
+
+DELETING  :	drop table 'tablename';
+
+for example   : 	drop table company;
+
+RETRIEVAL :	select column1, ...colN from table_name where [search_condition];
+
+for example   : 
+		select * from company;
+		
+		compid |  name  | age |  address  | salary 
+
+	--------+--------+-----+-----------+--------
+
+     	 1 | tarun  |  22 | faridabad |   1500
+
+      	2 | tyagi  |  21 | faridabad |   2000
+
+      	3 | nikhil |  20 | palwal    |   2500
+
+	sample=# select * from department;
+
+
+	 depid |    dept    | empid 
+
+	-------+------------+-------
+
+	     1 | sales      |     1
+
+	     2 | purchase   |     2
+
+	     3 | production |     3
+
+
+select salary , age from company;
+
+salary | age 
+
+--------+-----
+
+   1500 |  22
+
+   2000 |  21
+
+   2500 |  20
+
+
+select age from company where compid>2;
+
+age 
+
+-----
+
+  20
+
+
+select * from company where  name='tarun'
+
+sample-# ;
+
+ compid | name  | age |  address  | salary 
+
+--------+-------+-----+-----------+--------
+
+      1 | tarun |  22 | faridabad |   1500
+
+(1 row)
+
+
+
+
+
+select * from company where compid in(1,3);
+
+compid |  name  | age |  address  | salary 
+
+--------+--------+-----+-----------+--------
+
+      1 | tarun  |  22 | faridabad |   1500
+
+      3 | nikhil |  20 | palwal    |   2500
+
+
+select dept from department where empid>2;
+ 
+dept    
+
+------------
+
+ production
+
+
+
+
+SCHEMA :	named collection
+		create schema schema_name;
+		create 	table schemaname.tablename(
+				column1 datatype,
+  				 column2 datatype,
+   			  				 .....
+				 columnN datatype,
+   				PRIMARY KEY( one or more columns )
+				);		
+
+drop schema myschema;			:	to drop a schema
+drop schema myschema cascade;		:	to drop a schema including all contained 								objects
+
+ALTER COMMAND
+
+alter table company add column email int;
+
+alter table company drop column email;
+
+sample=# alter table company rename column salary to wages;
+
+ALTER TABLE
+
+
+UPDATE COMMAND
+
+sample=# update company set name='parv' where wages='2000';
+
+UPDATE 1
+
+
+
+
+sample=# select * from company;
+
+
+ compid |  name  | age |  address  | wages 
+
+--------+--------+-----+-----------+-------
+
+      1 | tarun  |  22 | faridabad |  1500
+
+      3 | nikhil |  20 | palwal    |  2500
+
+      2 | parv   |  21 | faridabad |  2000
+
+(3 rows)
+
+
+update department set dept='hello' where  depid='3';
+
+AND & OR CLAUSES
+
+select col1,col2....colN  from 'tablename' where condition1 and/or condition 2 and/or....condition N;
+
+		insert into company values(4,'neha',25,'hodal',5500);
+		insert into company values(5,'divya',27,'nit',6000);
+		insert into company values(6,'sapna',19,'sec-3',10000);
+
+select name from company where compid in(2,4) and address='hodal';
+
+ name 
+
+------
+
+ neha
+
+
+select name from company where compid in(2,4) or address='hodal';
+
+ name 
+
+------
+
+ parv
+
+ neha
+
+
+LIKE CLAUSE : LIKE operator is used to match text values against a pattern using wildcards
+	SYNTAX :	select col1...colN from tablename where colX like 'ab%' / '%ab' / '%ab%';
+
+sample=# select * from company where address like 'fa%';
+
+ compid | name  | age |  address  | wages 
+
+--------+-------+-----+-----------+-------
+
+      1 | tarun |  22 | faridabad |  1500
+
+      2 | parv  |  21 | faridabad |  2000
+
+
+sample=# select * from company where address like '%al';
+
+ compid |  name  | age | address | wages 
+
+--------+--------+-----+---------+-------
+
+      3 | nikhil |  20 | palwal  |  2500
+
+      4 | neha   |  25 | hodal   |  5500
+
+
+LIMIT CLAUSE  :	 limits the data amount returned.
+			  Limit n 	: 	return n  no of records
+			  offset m 	:	start from (m+1)th recod.
+
+ORDER BY		:  to sort the data in ascending or descending order based on column(s).
+
+sample=# select * from company order by wages limit 3;
+
+ compid |  name  | age |  address  | wages 
+
+--------+--------+-----+-----------+-------
+
+      1 | tarun  |  22 | faridabad |  1500
+
+      2 | parv   |  21 | faridabad |  2000
+
+      3 | nikhil |  20 | palwal    |  2500
+
+(3 rows)
+
+sample=# select name from company order by age limit 3;
+
+  name  
+
+--------
+
+ sapna
+
+ nikhil
+
+ parv
+
+
+GROUP BY       :      used iun collaboration with select statement to group those rows in a table  			   that have identical data. This is done to eliminate redundanc;y in the o/p.
+			=> followd by where clause and preceeded by order by clasue.
+
+# When multiple keys aree used as primary keys, they're called composite keys.
+
+Alter table department add foreign key(empid) references company(compid);
+
+sample=# select address from company group by address;
+
+  address  
+
+-----------
+
+ faridabad
+
+ palwal
+
+ sec-3
+
+ hodal
+
+ nit
+
+(5 rows)
+
+
+CHECK CONSTRAINT : it enables the condition to check the value beign inserted into a record. If the record violates the constraints, it is not entered.
+
+Eg 	: 	add column abc int check abc>100 
+
+
+alter table [tablename] drop constraint [constraint-name] : to drop a constraint;
+
+JOINS
+
+CROSS JOIN : returns cartresian product.
+		      Select …. from table1 cross join table2;
+
+INNER JOIN  : =>  displays only the matching values.
+		      =>  default type of join.
+
+		      Select table1.col1,...tableN.colN  from 
+		       table1 inner join table2 on table1.commonfield = table2.commonfield;
+		
+
+sample=# select name from company inner join department on company.compid=department.empid;
+
+  
+name  
+
+--------
+
+ tarun
+
+ parv
+
+ nikhil
+
+(3 rows)
+
+
+LEFT OUTER JOIN :  each row of table1 that does not satisfy join condition with row in 				        table2 , a joined row added with null values in table2.
+
+sample=# select * from company left outer join department on company.compid=department.empid;
+
+
+ compid |  name  | age |  address  | wages | depid |    dept    | empid 
+
+--------+--------+-----+-----------+-------+-------+------------+-------
+
+      1 | tarun  |  22 | faridabad |  1500 |     1 | sales      |     1
+
+      2 | parv   |  21 | faridabad |  2000 |     2 | purchase   |     2
+
+      3 | nikhil |  20 | palwal    |  2500 |     3 | production |     3
+
+      5 | divya  |  27 | nit       |  6000 |       |            |      
+
+      6 | sapna  |  19 | sec-3     | 10000 |       |            |      
+
+      4 | neha   |  25 | hodal     |  5500 |       |            |      
+
+(6 rows)
+
+
+RIGHT OUTER JOIN :  each row of table2 that does not satisfy join condition with row in 				        table2 , a joined row added with null values in table1
+
+sample=# select * from company right outer join department on company.compid=department.empid;
+
+
+ compid |  name  | age |  address  | wages | depid |    dept    | empid 
+
+--------+--------+-----+-----------+-------+-------+------------+-------
+
+      1 | tarun  |  22 | faridabad |  1500 |     1 | sales      |     1
+
+      2 | parv   |  21 | faridabad |  2000 |     2 | purchase   |     2
+
+      3 | nikhil |  20 | palwal    |  2500 |     3 | production |     3
+
+(3 rows)
+.
+
+SUBQUERIES (NESTED QUERIES) : query within a query. 
+=> subquery is used to return data that will be used in the main query as a condition to further restrict the data to be retrieved.
+
+Subqueries can be used with the SELECT, INSERT, UPDATE and DELETE statements along with the operators like =, <, >, >=, <=, IN, etc.
+sample=# select * from company where wages in(select max(wages) from company);
+
+
+ compid | name  | age | address | wages 
+
+--------+-------+-----+---------+-------
+
+      6 | sapna |  19 | sec-3   | 10000
+
+(1 row)
+
+
+sample=# select * from company where wages in(select wages from company where wages>5000);
+
+ 
+compid | name  | age | address | wages 
+
+--------+-------+-----+---------+-------
+
+      4 | neha  |  25 | hodal   |  5500
+
+      5 | divya |  27 | nit     |  6000
+
+      6 | sapna |  19 | sec-3   | 10000
+
+(3 rows)
+
+
+sample=# select * from company left outer join department on company.compid=department.empid where age in(select age from company where age>22); 
+
+
+ compid | name  | age | address | wages | depid | dept | empid 
+
+--------+-------+-----+---------+-------+-------+------+-------
+
+      5 | divya |  27 | nit     |  6000 |       |      |      
+
+      4 | neha  |  25 | hodal   |  5500 |       |      |      
+
+(2 rows)
+
+
+sample=# select * from company where name in(select name from company where wages>5000);
+
+
+ compid | name  | age | address | wages 
+
+--------+-------+-----+---------+-------
+
+      4 | neha  |  25 | hodal   |  5500
+
+      5 | divya |  27 | nit     |  6000
+
+      6 | sapna |  19 | sec-3   | 10000
+
+(3 rows)
+
+
+
+AGGREGATE FUNCTIONS :  Postgresql built-in functions which are used for performing 						some operation on string or numeric data.
+
+
+
+
+
+SOME USEFUL BUILT-IN FUNCTIONS :
+
+SUM 		:	allows selection the total value of a particular numeric column.
+
+sample=# select sum(wages) from company;
+
+  sum  
+
+-------
+
+ 27500
+
+(1 row)
+
+	
+COUNT	:	counts the number of rows/records in a database table.
+
+sample=# select count(compid) from company cross join department;
+
+ count 
+
+-------
+
+    18
+
+(1 row)
+
+
+MAX		:	selects the maximum value for a particular column.
+
+sample=# select max(age) from company;
+
+ max 
+
+-----
+
+  27
+
+(1 row)
+
+
+MAX		:	selects the maximum value for a particular column.
+
+sample=# select min(age) from company;
+
+ min 
+
+-----
+
+  19
+
+(1 row)
+
+
+AVG		:	selects the average value for a particular column.
+
+sample=# select avg(compid) from company cross join department;
+
+        avg         
+
+--------------------
+
+ 3.5000000000000000
+
+(1 row)
+
+
+WITH CLAUSE	:    It provides a way to write auxillary statements fro use in a larger query. 			     It helps in breaking down complex and larger queries into simpler 				     forms which are easily readable. 
+			     => Also called as Common Table Expressions (CTEs).
+
+Syntax	:	with name_for_this(subquery) select …. from name_for_this;
+
+sample=# with ed as(select name from company) select * from ed limit 3;
+
+  name  
+
+--------
+
+ tarun
+
+ nikhil
+
+ parv
+
+sample=# with x as (select age,empid from company left outer join department on company.compid=department.empid) select * from x;
+
+ 
+age | empid 
+
+-----+-------
+
+  22 |     1
+
+  21 |     2
+
+  20 |     3
+
+  27 |      
+
+  19 |      
+
+  25 |      
+
+(6 rows) 
+		
+
+RECURSIVE WITH	:	It, is a form of CTE where a CTE can reference to itself,
+					i.e., a WITH query can refer to its own output, hence the 						name recursive.
+
+sample=# WITH RECURSIVE t(n) AS (
+
+   VALUES (0)
+
+   UNION ALL
+
+   SELECT WAGES FROM COMPANY WHERE WAGES < 20000
+
+)
+
+SELECT sum(n) FROM t;
+
+  
+sum  
+
+-------
+
+ 27500
+
+(1 row)
+
+
+HAVING CLAUSE	:	It picks out certain rows where the function's result meet 						some condition.
+					The where clause places conditions on the selected 							columns, whereas the having clause places conditions on 						groups created by the group by clause.
+
+Syntax : select … from … where[condition] group by … having[condition] order by …;
+
+adding more values in our table 
+
+		insert into company values(7,'tarun',22,'gurgaonl',4500);
+		insert into company values(8,'tarun',26,'noida',6200);
+		
+
+
+sample=# select * from company;
+
+ 
+compid |  name  | age |  address  | wages 
+
+--------+--------+-----+-----------+-------
+
+      1 | tarun  |  22 | faridabad |  1500
+
+      3 | nikhil |  20 | palwal    |  2500
+
+      2 | parv   |  21 | faridabad |  2000
+
+      4 | neha   |  25 | hodal     |  5500
+
+      5 | divya  |  27 | nit       |  6000
+
+      6 | sapna  |  19 | sec-3     | 10000
+
+      7 | tarun  |  22 | gurgaonl  |  4500
+
+      8 | tarun  |  26 | noida     |  6200
+
+(8 rows)
+
+
+sample=# select name from company group by name having count(name)>2;
+
+ 
+name  
+
+-------
+
+ tarun
+
+(1 row)
+
+
+sample=# select name from company group by name having count(name)=1;
+
+
+  name  
+
+--------
+
+ parv
+
+ neha
+
+ divya
+
+ nikhil
+
+ sapna
+
+(5 rows)
+
+
+DISTINCT 		:	fetches only unique records by eliminating duplicate values.
+
+sample=# select distinct name from company;
+
+  name  
+
+--------
+
+ parv
+
+ neha
+
+ divya
+
+ tarun
+
+ nikhil
+
+ sapna
+
+(6 rows)
+	
+UNION CLAUSE	:    => combines reults of two or more select statements.
+			     => to use union clause each select statement must have 
+				    - same no of columns selected
+				    - same no of column expressions
+				    - same data type
+				    - have them in same order
+
+sample=# select name from company union select dept from department;
+
+
+    name    
+
+------------
+
+ production
+
+ sales
+
+ parv
+
+ tarun
+
+ divya
+
+ sapna
+
+ neha
+
+ nikhil
+
+ purchase
+
+(9 rows)
+
+
+
+sample=# select age from company union select empid from department;l
+
+
+ age 
+
+-----
+
+  25
+
+  26
+
+  21
+
+  20
+
+  27
+
+   2
+
+  19
+
+   1
+
+  22
+
+   3
+
+(10 rows)
+
+
+
+
+
+
+
+
+
+sample=# with result as(select name,empid from company left outer join department on company.compid=department.empid) select * from result ;
+
+
+  name  | empid 
+
+--------+-------
+
+ tarun  |     1
+
+ parv   |     2
+
+ nikhil |     3
+
+ divya  |      
+
+ tarun  |      
+
+ sapna  |      
+
+ neha   |      
+
+ tarun  |      
+
+(8 rows)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+POSTGRES 
+
+Installation 
+sudo apt-get install postgresql postgresql-contrib
+service postgresql (start/stop/restart/status/reload/force reload)
+//default user = postgres 
+sudo su postgres
+		
+psql		:	to enter sql mode
+\l		:	to list out all the present databases
+\du		:	to list out user
+\c dbname	:	to connect to a particular database
+\d		:	to view the tables in the database
+\d tablename  :	to view a particular table in the database
+\q		:	to exit fom psql
+
+alter user postgres with password 'new password' ;    :  to change user password
+create user 'username' with password 'your password'   : to create a  new user
+alter user 'username' with superuser	: 	to provide privileges to user
+drop user  'username'	:	to remove a user
+
+DATA TYPES
+
+1. Numeric Types	:	small int 	2 bytes
+				integer	4 bytes
+				bigint		8 bytes
+				decimal	variable
+				numeric	variable
+				real 		4 bytes
+				double precision   8 bytes
+				small serial    2 bytes
+				serial 		 4 bytes
+				big serial 	  8 bytes
+
+2. Character Types	:	varchar(n)	variable length with limit
+				char(n)	fixed length , blank padded
+				text		variable unlimited length
+
+3.  Monetary Types	:	store a currency amount with a fixed fractional precision
+				money		8  bytes
+
+4. Binary Types	:	bytea 		1 or 4 byte plus the actual binary string
+
+5. Boolean Types	:	boolean	1 byte		states true or false
+
+6. Date/Time Types	:	Dates are counted according to Gregorian calendar. Here all types 					have resolution of 1 microsecond/4 digits except date type, whose 					resolution is day.
+				
+				timestamp[(p)]		8 bytes
+				[without time zone]
+				timestamp[(p)]		8 bytes
+				[with time zone]		
+				date				4 bytes
+				time[(p)]			8 bytes
+				(without time zone)
+				time[(p)]			12 bytes
+				(with time zone)
+				interval[field] [(p)]		12 bytes
+
+7. Enumerated Type	:	They comprise a static orderd set of values. They need to be created 				first using the create type command.
+				create type week as enum('mon','tue','wed'.....'sun');
+
+8. Geometric Type	:	point		16 bytes		point on plane
+				line		32 bytes		infinite line
+				lseg		32 bytes		finite line segment
+				box		32 bytes		rectangular box
+				path		16+16n bytes		closed path
+				path		16+16n bytes		open path
+				polygon	40+16n		polygon
+				circle		24 bytes		circle
+
+PRIMARY KEY	: => uniqely defines each record in a database
+			  =>  must contain null values, cannot contain  null values.
+			  =>  table can have only one primary key which can point to one or 				         more fields.
+
+FOREIGN KEY  :  =>  used to link two tables together.
+			   =>  it's a field in one table referring to primary key in another table.
+			   =>  the table containing foreign key is called as the child table.
+
+
+
+
+
+
+DATABASE OPERATIONS :
+
+create database 'dbname'	: to create a database
+	for example	 	create database sample;
+create database 'dbname'	: to remove the database
+
+TABLE CREATION :
+create table 'tablename'	: to create a table
+				create  table table_name(
+ 				column1 datatype,
+  				 column2 datatype,
+   			  				 .....
+				 columnN datatype,
+   				PRIMARY KEY( one or more columns )
+				);
+
+for example :
+	create table company (
+	compid int primary key not null,
+	name  varchar(20) not null,
+	age int not null,
+	address varchar(30) not null,
+	salary real
+	);
+
+	create table department(
+	depid int primary key not null,
+	dept varchar(30) not null,
+	empid int not null
+	);
+
+INSERTION  :	INSERT INTO TABLE_NAME VALUES (value1,value2,...valueN); 	
+			
+for example  :
+		insert into company values(1,'tarun',22,'faridabad',1500);
+		insert into company values(2,'tyagi',21,'faridabad',2000);
+		insert into company values(3,'nikhil',20,'palwal',2500);
+
+		insert into department values(1,'sales',1);
+		insert into department values(2,'purchase',2);
+		insert into department values(3,'production',3);
+
+DELETING  :	drop table 'tablename';
+
+for example   : 	drop table company;
+
+RETRIEVAL :	select column1, ...colN from table_name where [search_condition];
+
+for example   : 
+		select * from company;
+		
+		compid |  name  | age |  address  | salary 
+
+	--------+--------+-----+-----------+--------
+
+     	 1 | tarun  |  22 | faridabad |   1500
+
+      	2 | tyagi  |  21 | faridabad |   2000
+
+      	3 | nikhil |  20 | palwal    |   2500
+
+	sample=# select * from department;
+
+
+	 depid |    dept    | empid 
+
+	-------+------------+-------
+
+	     1 | sales      |     1
+
+	     2 | purchase   |     2
+
+	     3 | production |     3
+
+
+select salary , age from company;
+
+salary | age 
+
+--------+-----
+
+   1500 |  22
+
+   2000 |  21
+
+   2500 |  20
+
+
+select age from company where compid>2;
+
+age 
+
+-----
+
+  20
+
+
+select * from company where  name='tarun'
+
+sample-# ;
+
+ compid | name  | age |  address  | salary 
+
+--------+-------+-----+-----------+--------
+
+      1 | tarun |  22 | faridabad |   1500
+
+(1 row)
+
+
+
+
+
+select * from company where compid in(1,3);
+
+compid |  name  | age |  address  | salary 
+
+--------+--------+-----+-----------+--------
+
+      1 | tarun  |  22 | faridabad |   1500
+
+      3 | nikhil |  20 | palwal    |   2500
+
+
+select dept from department where empid>2;
+ 
+dept    
+
+------------
+
+ production
+
+
+
+
+SCHEMA :	named collection
+		create schema schema_name;
+		create 	table schemaname.tablename(
+				column1 datatype,
+  				 column2 datatype,
+   			  				 .....
+				 columnN datatype,
+   				PRIMARY KEY( one or more columns )
+				);		
+
+drop schema myschema;			:	to drop a schema
+drop schema myschema cascade;		:	to drop a schema including all contained 								objects
+
+ALTER COMMAND
+
+alter table company add column email int;
+
+alter table company drop column email;
+
+sample=# alter table company rename column salary to wages;
+
+ALTER TABLE
+
+
+UPDATE COMMAND
+
+sample=# update company set name='parv' where wages='2000';
+
+UPDATE 1
+
+
+
+
+sample=# select * from company;
+
+
+ compid |  name  | age |  address  | wages 
+
+--------+--------+-----+-----------+-------
+
+      1 | tarun  |  22 | faridabad |  1500
+
+      3 | nikhil |  20 | palwal    |  2500
+
+      2 | parv   |  21 | faridabad |  2000
+
+(3 rows)
+
+
+update department set dept='hello' where  depid='3';
+
+AND & OR CLAUSES
+
+select col1,col2....colN  from 'tablename' where condition1 and/or condition 2 and/or....condition N;
+
+		insert into company values(4,'neha',25,'hodal',5500);
+		insert into company values(5,'divya',27,'nit',6000);
+		insert into company values(6,'sapna',19,'sec-3',10000);
+
+select name from company where compid in(2,4) and address='hodal';
+
+ name 
+
+------
+
+ neha
+
+
+select name from company where compid in(2,4) or address='hodal';
+
+ name 
+
+------
+
+ parv
+
+ neha
+
+
+LIKE CLAUSE : LIKE operator is used to match text values against a pattern using wildcards
+	SYNTAX :	select col1...colN from tablename where colX like 'ab%' / '%ab' / '%ab%';
+
+sample=# select * from company where address like 'fa%';
+
+ compid | name  | age |  address  | wages 
+
+--------+-------+-----+-----------+-------
+
+      1 | tarun |  22 | faridabad |  1500
+
+      2 | parv  |  21 | faridabad |  2000
+
+
+sample=# select * from company where address like '%al';
+
+ compid |  name  | age | address | wages 
+
+--------+--------+-----+---------+-------
+
+      3 | nikhil |  20 | palwal  |  2500
+
+      4 | neha   |  25 | hodal   |  5500
+
+
+LIMIT CLAUSE  :	 limits the data amount returned.
+			  Limit n 	: 	return n  no of records
+			  offset m 	:	start from (m+1)th recod.
+
+ORDER BY		:  to sort the data in ascending or descending order based on column(s).
+
+sample=# select * from company order by wages limit 3;
+
+ compid |  name  | age |  address  | wages 
+
+--------+--------+-----+-----------+-------
+
+      1 | tarun  |  22 | faridabad |  1500
+
+      2 | parv   |  21 | faridabad |  2000
+
+      3 | nikhil |  20 | palwal    |  2500
+
+(3 rows)
+
+sample=# select name from company order by age limit 3;
+
+  name  
+
+--------
+
+ sapna
+
+ nikhil
+
+ parv
+
+
+GROUP BY       :      used iun collaboration with select statement to group those rows in a table  			   that have identical data. This is done to eliminate redundanc;y in the o/p.
+			=> followd by where clause and preceeded by order by clasue.
+
+# When multiple keys aree used as primary keys, they're called composite keys.
+
+Alter table department add foreign key(empid) references company(compid);
+
+sample=# select address from company group by address;
+
+  address  
+
+-----------
+
+ faridabad
+
+ palwal
+
+ sec-3
+
+ hodal
+
+ nit
+
+(5 rows)
+
+
+CHECK CONSTRAINT : it enables the condition to check the value beign inserted into a record. If the record violates the constraints, it is not entered.
+
+Eg 	: 	add column abc int check abc>100 
+
+
+alter table [tablename] drop constraint [constraint-name] : to drop a constraint;
+
+JOINS
+
+CROSS JOIN : returns cartresian product.
+		      Select …. from table1 cross join table2;
+
+INNER JOIN  : =>  displays only the matching values.
+		      =>  default type of join.
+
+		      Select table1.col1,...tableN.colN  from 
+		       table1 inner join table2 on table1.commonfield = table2.commonfield;
+		
+
+sample=# select name from company inner join department on company.compid=department.empid;
+
+  
+name  
+
+--------
+
+ tarun
+
+ parv
+
+ nikhil
+
+(3 rows)
+
+
+LEFT OUTER JOIN :  each row of table1 that does not satisfy join condition with row in 				        table2 , a joined row added with null values in table2.
+
+sample=# select * from company left outer join department on company.compid=department.empid;
+
+
+ compid |  name  | age |  address  | wages | depid |    dept    | empid 
+
+--------+--------+-----+-----------+-------+-------+------------+-------
+
+      1 | tarun  |  22 | faridabad |  1500 |     1 | sales      |     1
+
+      2 | parv   |  21 | faridabad |  2000 |     2 | purchase   |     2
+
+      3 | nikhil |  20 | palwal    |  2500 |     3 | production |     3
+
+      5 | divya  |  27 | nit       |  6000 |       |            |      
+
+      6 | sapna  |  19 | sec-3     | 10000 |       |            |      
+
+      4 | neha   |  25 | hodal     |  5500 |       |            |      
+
+(6 rows)
+
+
+RIGHT OUTER JOIN :  each row of table2 that does not satisfy join condition with row in 				        table2 , a joined row added with null values in table1
+
+sample=# select * from company right outer join department on company.compid=department.empid;
+
+
+ compid |  name  | age |  address  | wages | depid |    dept    | empid 
+
+--------+--------+-----+-----------+-------+-------+------------+-------
+
+      1 | tarun  |  22 | faridabad |  1500 |     1 | sales      |     1
+
+      2 | parv   |  21 | faridabad |  2000 |     2 | purchase   |     2
+
+      3 | nikhil |  20 | palwal    |  2500 |     3 | production |     3
+
+(3 rows)
+.
+
+SUBQUERIES (NESTED QUERIES) : query within a query. 
+=> subquery is used to return data that will be used in the main query as a condition to further restrict the data to be retrieved.
+
+Subqueries can be used with the SELECT, INSERT, UPDATE and DELETE statements along with the operators like =, <, >, >=, <=, IN, etc.
+sample=# select * from company where wages in(select max(wages) from company);
+
+
+ compid | name  | age | address | wages 
+
+--------+-------+-----+---------+-------
+
+      6 | sapna |  19 | sec-3   | 10000
+
+(1 row)
+
+
+sample=# select * from company where wages in(select wages from company where wages>5000);
+
+ 
+compid | name  | age | address | wages 
+
+--------+-------+-----+---------+-------
+
+      4 | neha  |  25 | hodal   |  5500
+
+      5 | divya |  27 | nit     |  6000
+
+      6 | sapna |  19 | sec-3   | 10000
+
+(3 rows)
+
+
+sample=# select * from company left outer join department on company.compid=department.empid where age in(select age from company where age>22); 
+
+
+ compid | name  | age | address | wages | depid | dept | empid 
+
+--------+-------+-----+---------+-------+-------+------+-------
+
+      5 | divya |  27 | nit     |  6000 |       |      |      
+
+      4 | neha  |  25 | hodal   |  5500 |       |      |      
+
+(2 rows)
+
+
+sample=# select * from company where name in(select name from company where wages>5000);
+
+
+ compid | name  | age | address | wages 
+
+--------+-------+-----+---------+-------
+
+      4 | neha  |  25 | hodal   |  5500
+
+      5 | divya |  27 | nit     |  6000
+
+      6 | sapna |  19 | sec-3   | 10000
+
+(3 rows)
+
+
+
+AGGREGATE FUNCTIONS :  Postgresql built-in functions which are used for performing 						some operation on string or numeric data.
+
+
+
+
+
+SOME USEFUL BUILT-IN FUNCTIONS :
+
+SUM 		:	allows selection the total value of a particular numeric column.
+
+sample=# select sum(wages) from company;
+
+  sum  
+
+-------
+
+ 27500
+
+(1 row)
+
+	
+COUNT	:	counts the number of rows/records in a database table.
+
+sample=# select count(compid) from company cross join department;
+
+ count 
+
+-------
+
+    18
+
+(1 row)
+
+
+MAX		:	selects the maximum value for a particular column.
+
+sample=# select max(age) from company;
+
+ max 
+
+-----
+
+  27
+
+(1 row)
+
+
+MAX		:	selects the maximum value for a particular column.
+
+sample=# select min(age) from company;
+
+ min 
+
+-----
+
+  19
+
+(1 row)
+
+
+AVG		:	selects the average value for a particular column.
+
+sample=# select avg(compid) from company cross join department;
+
+        avg         
+
+--------------------
+
+ 3.5000000000000000
+
+(1 row)
+
+
+WITH CLAUSE	:    It provides a way to write auxillary statements fro use in a larger query. 			     It helps in breaking down complex and larger queries into simpler 				     forms which are easily readable. 
+			     => Also called as Common Table Expressions (CTEs).
+
+Syntax	:	with name_for_this(subquery) select …. from name_for_this;
+
+sample=# with ed as(select name from company) select * from ed limit 3;
+
+  name  
+
+--------
+
+ tarun
+
+ nikhil
+
+ parv
+
+sample=# with x as (select age,empid from company left outer join department on company.compid=department.empid) select * from x;
+
+ 
+age | empid 
+
+-----+-------
+
+  22 |     1
+
+  21 |     2
+
+  20 |     3
+
+  27 |      
+
+  19 |      
+
+  25 |      
+
+(6 rows) 
+		
+
+RECURSIVE WITH	:	It, is a form of CTE where a CTE can reference to itself,
+					i.e., a WITH query can refer to its own output, hence the 						name recursive.
+
+sample=# WITH RECURSIVE t(n) AS (
+
+   VALUES (0)
+
+   UNION ALL
+
+   SELECT WAGES FROM COMPANY WHERE WAGES < 20000
+
+)
+
+SELECT sum(n) FROM t;
+
+  
+sum  
+
+-------
+
+ 27500
+
+(1 row)
+
+
+HAVING CLAUSE	:	It picks out certain rows where the function's result meet 						some condition.
+					The where clause places conditions on the selected 							columns, whereas the having clause places conditions on 						groups created by the group by clause.
+
+Syntax : select … from … where[condition] group by … having[condition] order by …;
+
+adding more values in our table 
+
+		insert into company values(7,'tarun',22,'gurgaonl',4500);
+		insert into company values(8,'tarun',26,'noida',6200);
+		
+
+
+sample=# select * from company;
+
+ 
+compid |  name  | age |  address  | wages 
+
+--------+--------+-----+-----------+-------
+
+      1 | tarun  |  22 | faridabad |  1500
+
+      3 | nikhil |  20 | palwal    |  2500
+
+      2 | parv   |  21 | faridabad |  2000
+
+      4 | neha   |  25 | hodal     |  5500
+
+      5 | divya  |  27 | nit       |  6000
+
+      6 | sapna  |  19 | sec-3     | 10000
+
+      7 | tarun  |  22 | gurgaonl  |  4500
+
+      8 | tarun  |  26 | noida     |  6200
+
+(8 rows)
+
+
+sample=# select name from company group by name having count(name)>2;
+
+ 
+name  
+
+-------
+
+ tarun
+
+(1 row)
+
+
+sample=# select name from company group by name having count(name)=1;
+
+
+  name  
+
+--------
+
+ parv
+
+ neha
+
+ divya
+
+ nikhil
+
+ sapna
+
+(5 rows)
+
+
+DISTINCT 		:	fetches only unique records by eliminating duplicate values.
+
+sample=# select distinct name from company;
+
+  name  
+
+--------
+
+ parv
+
+ neha
+
+ divya
+
+ tarun
+
+ nikhil
+
+ sapna
+
+(6 rows)
+	
+UNION CLAUSE	:    => combines reults of two or more select statements.
+			     => to use union clause each select statement must have 
+				    - same no of columns selected
+				    - same no of column expressions
+				    - same data type
+				    - have them in same order
+
+sample=# select name from company union select dept from department;
+
+
+    name    
+
+------------
+
+ production
+
+ sales
+
+ parv
+
+ tarun
+
+ divya
+
+ sapna
+
+ neha
+
+ nikhil
+
+ purchase
+
+(9 rows)
+
+
+
+sample=# select age from company union select empid from department;l
+
+
+ age 
+
+-----
+
+  25
+
+  26
+
+  21
+
+  20
+
+  27
+
+   2
+
+  19
+
+   1
+
+  22
+
+   3
+
+(10 rows)
+
+
+
+
+
+sample=# with result as(select name,empid from company left outer join department on company.compid=department.empid) select * from result ;
+
+
+  name  | empid 
+
+--------+-------
+
+ tarun  |     1
+
+ parv   |     2
+
+ nikhil |     3
+
+ divya  |      
+
+ tarun  |      
+
+ sapna  |      
+
+ neha   |      
+
+ tarun  |      
+
+(8 rows)
+
+
+ALIAS	: to rename a table or column temporarily for a particulaer postgresql statement. Actual name does not change.
+
+syntax for table renaming    :  select .... from table_name as alias_name where [conditon] ; 	
+syntax for column renaming    :  select column_name as alias_name from table_name where [conditon] ; 
+
+sample=# select name as temp_name from company where wages>5000;
+ temp_name 
+-----------
+ neha
+ divya
+ sapna
+ tarun
+(4 rows)
+
+
+sample=# select name,age from company as temp_company;
+  name  | age 
+--------+-----
+ tarun  |  22
+ nikhil |  20
+ parv   |  21
+ neha   |  25
+ divya  |  27
+ sapna  |  19
+ tarun  |  22
+ tarun  |  26
+(8 rows)
+
+sample=# select c.name,d.empid from company c, department d where c.compid=d.empid;
+  name  | empid 
+--------+-------
+ tarun  |     1
+ parv   |     2
+ nikhil |     3
+(3 rows)
+
+
+now using alias on the above query 
+
+sample=# select c.name as cname ,d.empid did from company c, department d where c.compid=d.empid;
+ cname  | did 
+--------+-----
+ tarun  |   1
+ parv   |   2
+ nikhil |   3
+(3 rows)
+
+
+TRUNCATE TABLE	: used to delete data from a a table just like delete. It has the same effect as DELETE on each table, but since it does not 			  actually scan the tables, it is faster. Furthermore, it reclaims disk space immediately, rather than requiring a subsequent 			  VACUUM operation. This is most useful on large tables.
+
+syntax : truncate table table_name ;
+
+
+VIEWS	:	views are pseudo tables means they are not real tables but appera as ordinary tables to select. A view can contain all rows of 			a table or selected rows from one or more tables. A view can be created from one or many tables, which depends on the written 			PostgreSQL query to create a view.
+
+syntax	: 	create [temp|temporary] view view_name as col1,col2....from tablename where[condition];
+
+sample=# create view new_view as select compid,name from company; 
+CREATE VIEW
+
+sample=# select * from new_view;
+ compid |  name  
+--------+--------
+      1 | tarun
+      3 | nikhil
+      2 | parv
+      4 | neha
+      5 | divya
+      6 | sapna
+      7 | tarun
+      8 | tarun
+(8 rows)
+
+sample=# drop view new_view;
+DROP VIEW
+
+
+TRANSACTION	: A transaction is a unit of work performed against a database.
+	Atomicity − Ensures that all operations within the work unit are completed successfully; otherwise, the transaction is aborted at the point of failure and previous operations are rolled back to their former state.
+
+Consistency − Ensures that the database properly changes states upon a successfully committed transaction.
+
+Isolation − Enables transactions to operate independently of and transparent to each other.
+
+Durability − Ensures that the result or effect of a committed transaction persists in case of a system failure.
+PROPERTIES	:
+
+Atomicity − Ensures that all operations within the work unit are completed successfully; otherwise, the transaction is aborted at the point of failure and previous operations are rolled back to their former state.
+
+Consistency − Ensures that the database properly changes states upon a successfully committed transaction.
+
+Isolation − Enables transactions to operate independently of and transparent to each other.
+
+Durability − Ensures that the result or effect of a committed transaction persists in case of a system failure.
+
+TRANSACTION CONTROL : 
+			BEGIN	: to begin transaction
+			COMMIT	: to save the changes
+			ROLLBACK: to rolllback the changes
+
+sample=# select * from company;
+ compid |  name  | age |  address  | wages 
+--------+--------+-----+-----------+-------
+      1 | tarun  |  22 | faridabad |  1500
+      3 | nikhil |  20 | palwal    |  2500
+      2 | parv   |  21 | faridabad |  2000
+      4 | neha   |  25 | hodal     |  5500
+      5 | divya  |  27 | nit       |  6000
+      6 | sapna  |  19 | sec-3     | 10000
+      7 | tarun  |  22 | gurgaonl  |  4500
+      8 | tarun  |  26 | noida     |  6200
+(8 rows)
+
+sample=# begin;
+BEGIN
+sample=# delete from company where compid=6;
+DELETE 1
+sample=# rollback;
+ROLLBACK
+sample=# select * from company;
+ compid |  name  | age |  address  | wages 
+--------+--------+-----+-----------+-------
+      1 | tarun  |  22 | faridabad |  1500
+      3 | nikhil |  20 | palwal    |  2500
+      2 | parv   |  21 | faridabad |  2000
+      4 | neha   |  25 | hodal     |  5500
+      5 | divya  |  27 | nit       |  6000
+      6 | sapna  |  19 | sec-3     | 10000
+      7 | tarun  |  22 | gurgaonl  |  4500
+      8 | tarun  |  26 | noida     |  6200
+(8 rows)
+
+
+sample=# begin;
+BEGIN
+sample=# delete from company where compid='8';
+DELETE 1
+sample=# commit;
+COMMIT
+sample=# select * from company;
+ compid |  name  | age |  address  | wages 
+--------+--------+-----+-----------+-------
+      1 | tarun  |  22 | faridabad |  1500
+      3 | nikhil |  20 | palwal    |  2500
+      2 | parv   |  21 | faridabad |  2000
+      4 | neha   |  25 | hodal     |  5500
+      5 | divya  |  27 | nit       |  6000
+      6 | sapna  |  19 | sec-3     | 10000
+      7 | tarun  |  22 | gurgaonl  |  4500
+(7 rows)
+
