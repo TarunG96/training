@@ -1,0 +1,27 @@
+What is Ruby and features of Ruby.
+
+Naming conentions in Ruby : 
+
+Constant: 		Starts with a capital letter.
+Global variable: 	Starts with a dollar sign ($).
+Instance variable: 	Starts with a (@) sign.
+Class variable: 	Starts with a (@@) sign.
+Method name: 		Allowed to start with a capital letter.
+
+INSTALLATION : sudo apt-get install ruby-full.
+
+To see the installed Ruby version :
+
+dell@dell-Latitude-E6520:/$ ruby -v
+ruby 2.4.2p198 (2017-09-14 revision 59899) [i686-linux]
+dell@dell-Latitude-E6520:/$ 
+
+INSTALLING RVM	:
+
+sudo apt-get install software-properties-common
+
+ADDING PPA and INSTALLING the PACKAGE :
+
+sudo apt-add-repository -y ppa:rael-gc/rvm
+sudo apt-get update
+sudo apt-get install rvm
