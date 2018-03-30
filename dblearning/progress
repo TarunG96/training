@@ -1912,3 +1912,110 @@ sample=# select * from company;
       7 | tarun  |  22 | gurgaonl  |  4500
 (7 rows)
 
+
+SERIAL PSEUDOTYPE	:	A serial is special type which generates sequence of integers. It is generally used as a primary key column. 
+				It is equivalent to AUTO_INCREMENT in MYSQL.
+		syntax	:	create table table_name(
+				col1 serial ,
+				col2 data_type,
+				....
+				);
+
+for eg	: 	
+
+sample=# create table new(
+sample(# id serial primary key,
+sample(# value varchar(20)
+sample(# );
+CREATE TABLE
+
+Now lets test the auto increment feature by adding some values in the table.
+
+sample=# insert into new(value) values('abv');
+INSERT 0 1
+sample=# insert into new(value) values('aasd');
+INSERT 0 1
+sample=# insert into new(value) values('aasdf');
+INSERT 0 1
+
+sample=# select * from new;
+ id | value 
+----+-------
+  1 | abv
+  2 | aasd
+  3 | aasdf
+(3 rows)
+
+sample=# select name from company union all select value from new order by name asc;
+    name    
+------------
+ aasd
+ aasdf
+ abv
+ divya
+ nayi value
+ nayi value
+ neha
+ nikhil
+ parv
+ sapna
+ tarun
+ tarun
+(12 rows)
+
+INTERSECT :  combines the result sets of two or more select statemtns into a single result set.
+	     combines the rows/results given by both of the statements.
+
+sample=# select compid from company intersect select empid from department ;
+ compid 
+--------
+      1
+      3
+      2
+(3 rows)
+
+EXCEPT OPERATOR	:     Like the UNION and INTERSECT operators, the EXCEPT operator returns rows by comparing the result sets of two or more 			      quires.
+		      The EXCEPT operator returns distinct rows from the first (left) query that are not in the output of the second (right) 			      query. The following illustrates the syntax of the EXCEPT operator.
+
+sample=# select compid from company except select empid from department ;
+ compid 
+--------
+      6
+      4
+      5
+      7
+(4 rows)
+
+
+GROUPING SETS    :   A grouping set is a set of columns by which we group. A single aggregate query defines a single grouping set.
+		     It is subclause of the Group By clause.
+
+syntax	: 	select c1,c2,aggregate_function(c3) from table_name group by GROUPING SETS ((c1, c2),(c1),(c2),());
+
+sample=# CREATE TABLE sales (
+sample(#     brand VARCHAR NOT NULL,
+sample(#     segment VARCHAR NOT NULL,
+sample(#     quantity INT NOT NULL,
+sample(#     PRIMARY KEY (brand, segment)
+sample(# );
+CREATE TABLE
+
+
+sample=# INSERT INTO sales (brand, segment, quantity)
+sample-# VALUES
+sample-#     ('ABC', 'Premium', 100),
+sample-#     ('ABC', 'Basic', 200),
+sample-#     ('XYZ', 'Premium', 100),
+sample-#     ('XYZ', 'Basic', 300);
+INSERT 0 4
+
+
+sample=# select * from sales;
+ brand | segment | quantity 
+-------+---------+----------
+ ABC   | Premium |      100
+ ABC   | Basic   |      200
+ XYZ   | Premium |      100
+ XYZ   | Basic   |      300
+(4 rows)
+
