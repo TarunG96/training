@@ -1,0 +1,9 @@
+echo "Enter the folder/file you want to commit"
+read path
+git add $path
+echo "Enter name for your commit"
+read name
+git commit -m "$name"
+git remote add origin https://github.com/TarunG96/training.git
+git push -u origin master
+
