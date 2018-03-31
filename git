@@ -5,5 +5,5 @@ echo "Enter name for your commit"
 read name
 git commit -m "$name"
 git remote add origin https://github.com/TarunG96/training.git
-git push -u origin master
+git push origin master --force 
 
