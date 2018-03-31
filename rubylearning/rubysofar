@@ -25,3 +25,262 @@ ADDING PPA and INSTALLING the PACKAGE :
 sudo apt-add-repository -y ppa:rael-gc/rvm
 sudo apt-get update
 sudo apt-get install rvm
+
+rvm installl ruby RUBY VERSIONS :
+
+ruby - MRI ruby (The Gold Standard)
+ironruby - a .NET ruby
+jruby - Java implementation of the ruby
+macruby - implementation of ruby 1.9 directly on top of macOS core technologies
+maglev - 64-bit implementation on top of VMware's GemStone
+mruby - lightweight ruby
+opal - ruby to JavaScript compiler
+rbx - Rubinius - a next generation virtual machine VM for ruby
+topaz - high performance ruby, written in RPython
+
+
+TO switch between ruby versions : rvm use INTERPRETER[-VERSION]
+
+HEllo world program 
+
+puts "hello world" 
+save the file as file_name.rb 
+
+OPERATORS : 
+
+-> UNARY	: accept a single operator to run 
+		  !	Boolean NOT
+		  ~	Bitwise complement
+		  +	Unary plus
+puts "hello world" 
+puts (5)
+puts (~5)
+
+dell@dell-Latitude-E6520:~/training/rubylearning$ ruby test.rb
+hello world
+5
+-6
+
+-> ARITHEMETIC	: take numerical values as operands and return them as single values.
+
++	Adds values from both sides of the operator.
+-	Subtract values from both sides of the operator.
+/	Divide left side operand with right side operand.
+*	Multiply values from both sides of the operator.
+**	Right side operand becomes the exponent of left side operand.
+%	Divide left side operand with right side operand returning remainder.
+
+puts "hello world" 
+puts (5+5)
+puts (10-5)
+puts (10*5)
+puts (10/5)
+puts (2**5)
+puts (10%3)
+
+ruby test.rb
+hello world
+10
+5
+50
+2
+32
+1
+
+->BITWISE OPERATORS : work on bits operands.
+
+&	AND operator
+|	OR operator
+<<	Left shift operator
+>> 	Right shift operator
+^	XOR operator
+~	Complement operator
+
+->LOGICAL OPREATORS : work on bits operands.
+
+&&	AND operator
+||	OR operator
+
+->TERNARY OPREATOR	:	These operators first check whether the condition is true or not and then execute the condition.
+				?:	conditional expression.
+
+puts "hello world" 
+puts("Ternary operator")   
+puts(2<5 ? 5:2)   
+puts(5<2 ? 5:2)   
+
+ruby test.rb
+hello world
+Ternary operator
+5
+2
+
+->ASSIGNMENT OPERATOR	:	tHESE operator assigns a value to the operand.
+
+=	Simple assignment operator
++=	Add assignment operator
+-=	subtract assignment operator
+*=	Multiply assignment operator
+/=	Divide assignment operator
+%=	Modulus assignment operator
+**=	Exponential assignment operator
+
+->COMPARISION OPERATORS	:	these compare the values of two operands.
+
+==	Equal operator
+!=	Not equal operator
+>	left operand is greater than right operand
+< 	Right operand is greater than left operand
+>=	Left operand is greater than or equal to right operand
+<=	Right operand is greater than or equal to left operand
+<=>	Combined comparison operator
+.eql?	Checks for equality and type of the operands
+equal?	Checks for the object ID
+
+puts "hello world" 
+ puts(2 == 5)   
+ puts(2 != 5)   
+ puts(2 > 5)   
+ puts(2 < 5)   
+ puts(2 >= 5)   
+ puts(2 <= 5)   
+
+ruby test.rb
+hello world
+false
+true
+false
+true
+false
+true
+
+->RANGE OPREATOR	:	Range operators create a range of successive values consisting of a start, end and range of values in between.
+			The (..) creates a range including the last term and (...) creates a range excluding the last term.
+			For example, for the range of 1..5, output will range from 1 to 5.
+			and for the range of 1...5, output will range from 1 to 4.
+
+VARIABLES	 
+->  LOCAL 	:  starts with lowercase or underscore. scope is only within the block where its initialized.
+		   when uninitialized local variables are called, they are interpreted as call to a method that has no arguments.
+
+->  CLASS	:  starts with @@ sign. Need to be initialized before use.
+		   class variable belongs to the whole class and can be used anywhere in the class. If value changed at one instance,it's 			   changed at every instance. It is shared by all descendatns of the class.
+
+->  INSTANCE	:  starts with @ sign. It belongs to one instance of the class and can be accesed from any instance of the class within a 			   method. They have only limited access to a particular instance of a class. Don't need to be initialized.
+
+->  GLOBAL	:  starts with $ sign, can be accesed from anywhere in a program. An uninitialized global variable will have null value.
+
+
+DATA TYPES IN RUBY : 
+
+-> NUMBERS	:  intergers and floating point numbers.
+		   Fixnum			They are normal numbers				1
+		   Bignum			They are big numbers				111111111111
+		   Float			Decimal numbers					3.0
+		   Complex			Imaginary numbers				4 + 3i
+		   Rational			They are fractional numbers			9/4
+		   BigDecimal			Precision decimal numbers			6.0
+
+puts "hello world"
+puts (3+2)
+puts (3.0+2)
+puts (10/2)
+puts (10.0/2)
+puts ((3/2)/2)
+
+ruby test.rb
+hello world
+5
+5.0
+5
+5.0
+0
+
+-> STRINGS	:  defined by eclosing a text between single(') or double quotes(").
+
+puts "hello"+" world"
+puts "1" + "2"
+puts "5" * 2
+
+ruby test.rb
+hello world
+12
+55
+
+-> SYMBOLS	: these are like strings and are preceeded by colon (:). Symbols containing multiple words are written with (_). One 			  difference between string and symbol is that, if text is a data then it is a string but if it is a code it is a symbol.
+		  Symbols are unique identifiers and represent static values, while string represent values that change.
+
+puts "hello".object_id
+puts "hello".object_id
+puts :hello.object_id
+puts :hello.object_id
+
+ruby test.rb
+78161540
+78161350
+459058
+459058
+
+-> HASHES	:  A hash assign its values to its keys. They can be looked up by their keys. Value to a key is assigned by => sign. A 			   key/value pair is separated with a comma between them and all the pairs are enclosed within curly braces.
+
+sample={"tarun"=>"garg","nikhil"=>"batra","sapna"=>"chauhan"}
+puts sample["tarun"]
+puts sample["nikhil"]
+puts sample["sapna"]
+
+ruby test.rb
+garg
+batra
+chauhan
+
+->ARRAYS	:  An array stroes data or list of data. It can contain all types of data. Data in an array are separated by comma in between 			   them and are enclosed by square bracket.
+
+sample=["tarun","garg","nikhil","batra","sapna","chauhan"]
+puts sample[0]
+puts sample[3]
+puts sample[5]
+
+ruby test.rb
+tarun
+batra
+chauhan
+
+BACKSLASH NOTATIONS IN RUBY	:
+		\n			Newline 
+		\r			Carriage return 
+		\f			Formfeed 
+		\b			Backspace
+		\a			Bell 
+		\e			Escape
+		\s			Space 
+		\nnn			Octal notation (n being 0-7)
+		\xnn			Hexadecimal notation (n being 0-9, a-f, or A-F)
+		\cx, \C-x		Control-x
+		\M-x			Meta-x (c | 0x80)
+		\M-\C-x			Meta-Control-x
+		\x			Character x
+
+DEFINING CLASS	: class 'classname' 
+		  end
+CREATING OBJECTS : ob1 = classname.new
+		   ob2 = classname.new
+CUSTOM METHOD TO CREATE RUBY OBJECTS : we can pass parameteres to method new and these parameters can be used to initialize class variables.
+				       For this, we need to declare the method 'initialize' at the time of class creation. It is a special 					       method which will be executed when the new method is callled with parameters.
+class Customer
+   def initialize(id, name, addr)
+      @cust_id = id
+      @cust_name = name
+      @cust_addr = addr
+   end
+end
+
+ob1=Customer.new("1","tarun","faridabad")
+
+DEFINING FUNCTIONS IN RUBY  : start with 'def' and end with 'end' keywords.
+class Sample
+   def hello
+      puts "Hello Ruby!"
+   end
+end
+object = Sample. new
+object.hello
