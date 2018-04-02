@@ -46,6 +46,8 @@ HEllo world program
 puts "hello world" 
 save the file as file_name.rb 
 
+----To get input from user gets.chomp 
+
 OPERATORS : 
 
 -> UNARY	: accept a single operator to run 
@@ -284,3 +286,314 @@ class Sample
 end
 object = Sample. new
 object.hello
+
+COMMENTS :
+Single line - preceded by #
+multiline  -  written between =begin and =end
+
+CONDITIONAL STATEMENTS :
+->IF		:	if(condition)
+			//block of code
+			end
+
+->IF-ELSE	:	if(condition)
+			//block of code
+			end
+->ELSEIF	:	if(condition)
+			//statements
+			elseif(condition)
+			//statements
+			elseif(condition)
+			//statements
+			else
+			//statements
+x=10
+if x<5
+   x=6
+elseif x%2==0
+   puts("yes")
+else
+   puts("no condition matc")
+end
+
+->IF MODIFIER	:	//code if condition
+$x=1
+puts "hello" if $x==1
+
+ruby test.rb
+hello
+
+->UNLESS	:	unless condition
+			//code
+			else
+			//code
+
+$x=10
+unless $x>2
+   puts "x is greater than 2"
+else
+   puts "x is less than 2"
+
+end
+
+ruby test.rb
+x is less than 2
+
+-> UNLESS MODIFIER	: 	//code unless condition 
+
+-> CASE			:	Similar to switch of C language
+				
+case exression
+when expression [then]
+     code
+when expression [then]
+     code
+else
+     dode
+end
+
+puts "enter a value between 1 to 4"
+value=gets.chomp.to_i
+case value
+when 1
+   puts "one"
+when 2
+   puts "two"
+when 3
+   puts "three"
+when 4
+   puts "four"
+else
+   puts"invalid choice"
+end
+
+ruby test.rb
+enter a value between 1 to 4
+3
+three
+dell@dell-Latitude-E6520:~/training/rubylearning$ ruby test.rb
+enter a value between 1 to 4
+2
+two
+
+SIMPLE CALCULATOR PROGRAM : 
+puts "A SIMPLE CALCULATOR "
+   puts "enter two numbers"
+   value1=gets.chomp.to_f
+   value2=gets.chomp.to_f
+   puts"Enter your choice"
+   puts"1. ADDITION"
+   puts"2. SUBTRACTION"
+   puts"3. MULTIPLICATION"
+   puts"4. DIVISION"
+   choice=gets.chomp.to_i
+   case choice
+   when 1
+      res=value1+value2
+      puts(res)
+   when 2
+      res=value1-value2
+      puts (res)
+   when 3
+      res=value1*value2   
+      puts (res)
+   when 4
+      res=value1/value2
+      puts (res)
+   else
+      puts"invalid choice"
+      end
+
+ruby test.rb
+A SIMPLE CALCULATOR 
+enter two numbers
+1234
+2342
+Enter your choice
+1. ADDITION
+2. SUBTRACTION
+3. MULTIPLICATION
+4. DIVISION
+1
+3576.0
+
+LOOPS =>
+->FOR LOOP : for [variable] in [expresssion][do]	
+	     	code
+	     end
+
+puts "testing for loop"
+a=gets.chomp.to_i					//  for loop using range
+for i in 0..a do
+    puts(i)
+end
+
+ruby test.rb
+testing for loop
+5
+0
+1
+2
+3
+4
+5
+
+puts "testing for loop"					//  for loop using array
+a=["a","b","c","d","e"]
+for i in a do
+   puts(i)
+end
+
+ruby test.rb
+testing for loop
+a
+b
+c
+d
+e
+
+-> WHILE LOOP 	: It is generally used in conditions where  we do not know about the number of iterations.
+		  while [conditional] do
+			code
+		  end
+puts "testing while loop"
+puts "enter first number"
+a=gets.chomp.to_i
+puts "enter second number"
+b=gets.chomp.to_i
+while a<b do
+  puts(a)
+  a+=1
+end
+
+ruby test.rb
+testing while loop
+enter first number
+2
+enter second number
+7
+2
+3
+4
+5
+6
+
+-> WHILE MODIFIER :  begin
+			code 
+		     end while [condition]
+
+puts "testing while modifier"
+puts "enter first number"
+a=gets.chomp.to_i
+puts "enter second number"
+b=gets.chomp.to_i
+puts "loop begins here"
+begin
+   puts(a)
+   a+=1
+end while a<b
+
+ruby test.rb
+testing while modifier
+enter first number
+2
+enter second number
+7
+loop begins here
+2
+3
+4
+5
+6
+
+-> DO WHILE	:	loop do
+			   code to be executed
+			   break if boolean expression
+			end
+
+puts "testing while modifier"
+x=10
+loop do
+       puts(x)
+       x+=1
+       break if x>20
+     end
+
+ruby test.rb
+testing while modifier
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+
+-> UNTIL LOOP : It runs until condition becomes true. It is just opposite of while loop.
+		until [conditional]
+		    code to be executed
+		end
+
+x=1
+until x==10
+   puts (x*2)
+   x+=1
+end
+
+ruby test.rb
+2
+4
+6
+8
+10
+12
+14
+16
+18
+
+-> BREAK 	:	Break statement is used to terminate a loop or a block of code.
+
+for x in 2..8
+   if x==5 then
+      break
+   end
+   puts (x)
+end
+
+ruby test.rb
+2
+3
+4
+
+
+-> NEXT		:	Next statement is used to skip loop's next iteration. Once executed, no further iteration will ne performed.
+
+for x in 2..8
+   if x==5 then
+      next
+   end
+   puts (x)
+end
+
+ruby test.rb
+2
+3
+4
+6
+7
+8
+
+-> REDO		:	Used to repeat the current iteration of loop. Executed without evaluating the loop's condition. Used inside a loop.
+-> RETRY	:	used to repeat the whole loop iteration from the start.
+
+
+
+
+
+
+
+
