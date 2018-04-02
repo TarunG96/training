@@ -591,7 +591,104 @@ ruby test.rb
 -> RETRY	:	used to repeat the whole loop iteration from the start.
 
 
+ARRAYS	:	ordered collection of data.
+		-1 indicates last element of array.
+		0 indiacates first element of array.
 
+-> Using literal construct  :  
+	eg   :   data = [1,2,'a','b',5]
+-> Using new class method  :  A Ruby array is constructed by calling 'new' method with zero, one or more than one arguments.
+	eg   :   ArrayName = Array.new
+		 arrayname = Array.new(10)	//Array of size 10
+
+ACCESSING Array elements :
+-> 	the [] method
+	data[0] , data[-1] , data[4] , data [2,3]
+-> 	the at method
+	puts data.at(0) , data.at(3) , data.at(5)
+->	slice method	:  works like [] method.
+->	fetch method	:  used to provide a default value error for out of array range indicators.
+	
+eg :	days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]   
+	puts days.fetch(10)  
+
+        ruby test.rb
+	test.rb:2:in `fetch': index 10 outside of array bounds: -7...7 (IndexError)
+	from test.rb:2:in `<main>'
+	
+	days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]   
+	puts days.fetch(10,"na mila record")  
+	
+	ruby test.rb
+	na mila record
+
+->	first and last method   :   will return first and last record from array respectively.
+->	take(n)		:  will return first n records from the array.
+->	drop(n)		:  opposite of take method. Returns elements after n elements have been removed.
+
+
+ADDING ELEMENTS TO ARRAY    : 
+->	push or << method	:	items can be added to the end of arraay using this method.
+eg: 	days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]   
+	days.push(2)
+	puts days<<("aaj")  
+
+ 	ruby test.rb
+	Mon
+	Tue
+	Wed	
+	Thu
+	Fri
+	Sat
+	Sun
+	2
+	aaj
+
+->	unshift method	:	with these method items can  be added to the beginning of the array.
+	days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]   
+	puts days.unshift(2)
+
+	ruby test.rb
+	2
+	Mon
+	Tue
+	Wed
+	Thu
+	Fri
+	Sat	
+	Sun
+
+->	insert method	:	insert value at any position in array with the help of index.
+	array.insert(index,"value")
+	days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]   
+	puts days.insert(2,"hello")
+
+	ruby test.rb
+	Mon
+	Tue
+	hello
+	Wed
+	Thu
+	Fri
+	Sat
+	Sun
+
+REMOVING elements from array : 
+-> 	pop method	:	with this items are removed from the end of array and the removed item is returned.
+	days = ["Mon", "Tue",
+ "Wed", "Thu", "Fri", "Sat", "Sun"]   
+	puts days.pop
+	
+	ruby test.rb
+	Sun
+
+->	shift method	:	with this items are removed from the starting of array and the removed item is returned.
+->	delete method	:	with this item can be removed from anywhere in the array and the removed item is returned.
+	days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]   
+	puts days.delete("Tue")
+->	uniq method	:	with this duplicate items can be removed returning the remaining array.
+	days = ["Fri", "Sat", "Sun", "Sat"]   
+	puts days.uniq  
 
 
 
