@@ -185,4 +185,139 @@ puts arr
 31
 
 
+PUBLIC CLASS METHODS	:	[]*args    =>   returns a new array populated with the given objects.
+
+puts Array['2','hello']
+puts "\n"
+puts [1,'sad','34']
+puts "\n"
+puts Array.[](3,'bye')
+
+ruby test.rb
+2
+hello
+
+1
+sad
+34
+
+3
+bye
+
+
+-> Passing array as paramter 
+	first = ["tarun","garg"]
+	second = Array.new(first)
+	puts first .eql? second
+
+	ruby test.rb
+	true
+
+->	new(size) {|index| block }	:   Here, an array of given size is created. Each element in this array is created by passing the 						    element's indeex to the given block and storing the return value.
+	second = Array.new(3){|index| index*3}
+	puts second
+	
+	ruby test.rb
+	0
+	3
+	6
+
+-> try_convert(obj)	:	this method tries to convert obj into array. It returns array on success and nil if the obj cannot be 					converted into arrat for any reason.
+
+		puts Array.try_convert([11])
+		puts Array.try_convert("12")
+
+	ruby test.rb
+	11
+			// nil 
+
+
+PUBLIC INSTANCE METHODS :	
+
+-> SET-INTERSECTION	:	Returns a new array containing the common elements in both arrays and excluding the duplicate ones.
+				The order is preserved from the oroginal array.
+
+-> array * int      =>   new array
+-> array * string   =>   new string
+
+puts [1,2,3] * 3
+puts [1,2,3] * "ad"
+
+ruby test.rb
+1
+2
+3
+1
+2
+3
+1
+2
+3
+1ad2ad3
+
+-> array1 + array2    =>    New Array
+-> array1 - array2    =>    New Array
+
+-> array1 <=> array2   =>    -1, 0, +1 or nil     // nil is returned if the two values are incomparable.
+		       ** Two arrays are equal iff both of same length and have exactly same elements of same value.
+-> array1 == array2    => returns boolean true or false
+
+-> array[index]         = obj 				=> obj
+-> array[start, length] = obj or other_array or nil 	=> obj or other_array or nil
+-> array[range]         = obj or other_array or nil 	=> obj or other_array or nil
+
+data = [1,2,3,"hello","tarun",6,"demo",9]
+data[0]="zero"
+data[2..4] = [2,3,4]
+data[6] = "six"
+puts data
+
+ruby test.rb
+zero
+2
+2
+3
+4
+6
+sixSearches through an array whose elements are also arrays comparing obj with the first element of each contained array using obj.==.
+
+Returns the first contained array that matches (that is, the first associated array), or nil if no match is found.
+
+
+9
+
+-> assoc(obj)	=>	new_array or nil : searches through an array whose elements are also arrays comparing obj with the first element of 						   each contained array using obj.==.	
+					   Returns the first contained array that matches (that is, the first associated array), or nil if no 						   match is found.
+
+array1 = [ "colors", "red", "blue", "green" ]
+array2 = [ "letters", "a", "b", "c" ]
+res = [ array1, array2]
+puts res.assoc("colors")  
+     
+ruby test.rb
+colors
+red
+blue
+green
+
+-> bsearch {|x| block } → element   : binary search : can be used in two cases : a find minimum mode and find any mode. In either case, the 					      elements of the array must be sorted.
+  In find minimum mode, the block must return true or false and there must be an index.
+
+array = [ 1,2,5,45,34,2,32,56 ]
+puts array.bsearch { |x| x>=20 }
+puts array.bsearch { |x| x<=20 }
+
+ruby test.rb
+45
+
+
+  In find any mode, the block must return a number and there must be two indices i and j (0<=i<=j<=array.size)
+  **he block returns a positive number for array if 0 <= k < i,
+  **the block returns zero for array if i <= k < j, and
+  **the block returns a negative number for array if j <= k < array.size.
+
+-> clear 	: removes all  elements from self.
+
+
+
 
