@@ -1,0 +1,188 @@
+Creating array with new keyword :
+ary = Array.new				// no size given
+ary = Array.new(4)			// array with initial size 4
+ary = Array.new(3,"item")		// array with initial size 3 and data 'item' on all three positions
+
+ACCESSING Array elements :
+-> 	the [] method
+	data[0] , data[-1] , data[4] , data [2,3]
+-> 	the at method
+	puts data.at(0) , data.at(3) , data.at(5)
+->	slice method	:  works like [] method.
+->	fetch method	:  used to provide a default value error for out of array range indicators.
+	
+eg :	days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]   
+	puts days.fetch(10)  
+
+        ruby test.rb
+	test.rb:2:in `fetch': index 10 outside of array bounds: -7...7 (IndexError)
+	from test.rb:2:in `<main>'
+	
+	days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]   
+	puts days.fetch(10,"na mila record")  
+	
+	ruby test.rb
+	na mila record
+
+->	first and last method   :   will return first and last record from array respectively.
+->	take(n)		:  will return first n records from the array.
+->	drop(n)		:  opposite of take method. Returns elements after n elements have been removed.
+
+
+OBTAINING INFORMATION about an array    : 
+->	length / count / size	:	returns length of array
+
+-> 	arrayname.empty?	:	to check if the array has any elements or not i.e. it is empty or not.
+
+->	arrayname.include?('data item') : to check if particular data item is in the array or not.
+
+
+ADDING ELEMENTS TO ARRAY    : 
+->	push or << method	:	items can be added to the end of arraay using this method.
+eg: 	days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]   
+	days.push(2)
+	puts days<<("aaj")  
+
+ 	ruby test.rb
+	Mon
+	Tue
+	Wed	
+	Thu
+	Fri
+	Sat
+	Sun
+	2
+	aaj
+
+->	unshift method	:	with these method items can  be added to the beginning of the array.
+	days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]   
+	puts days.unshift(2)
+
+	ruby test.rb
+	2
+	Mon
+	Tue
+	Wed
+	Thu
+	Fri
+	Sat	
+	Sun
+
+->	insert method	:	insert value at any position in array with the help of index.
+	array.insert(index,"value")
+	days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]   
+	puts days.insert(2,"hello")
+
+	ruby test.rb
+	Mon
+	Sat
+	Tue
+	hello
+	Wed
+	Thu
+	Fri
+	Sun
+
+	** We can add multiple  values also using insert method.
+
+REMOVING elements from array : 
+-> 	pop method	:	with this items are removed from the end of array and the removed item is returned.
+	days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]   
+	puts days.pop
+	
+	ruby test.rb
+	Sun
+
+->	shift method	:	with this items are removed from the starting of array and the removed item is returned.
+->	delete method	:	with this item can be removed from anywhere in the array and the removed item is returned.
+	days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]   
+	puts days.delete("Tue")
+->	uniq method	:	with this duplicate items can be removed returning the remaining array.
+	days = ["Fri", "Sat", "Sun", "Sat"]   
+	puts days.uniq  
+->	compact method	:	to remove nil values from array
+
+
+ITERATING OVER ARRAYS	:	
+-> EACH METHOD	: Array has an 'each' method which decides what element should be iterated over and how. In case of Array's each 			  all elements in the Array instance are yielded to supplied block in sequence.
+		* Each method takes two arguments - an element and a block.
+		* The element contained inside the block is similar to a placeholder used in the block to represent each element of the array 			  in turn.
+		* Block is the line of code that is executed on each of the array items.
+
+arr = [1, 2, 3, 4, 5]
+arr.each { |a| puts a+=3}
+
+ruby test.rb
+4
+5
+6
+7
+8
+
+-> REVERSE_EACH METHOD	:   It will iterate over the array elements in reverse order.
+
+-> MAP METHOD	:	It will create a new array based on oeiginal array but with values modified by the supplied block.
+
+arr = [1, 2, 3, 4, 5]
+arr.map{ |a| puts a+=3}
+puts arr
+
+ruby test.rb
+4
+5
+6
+7
+8
+1
+2
+3
+4
+5
+
+SELECTING ITEMS from an Array : 
+
+-> DESTRUCTIVE METHOD		:	modifies the array on which the method is called on.
+-> NON DESTRUCTIVE METHOD	:	returns a new array with selected items and leaves the oroginal array unchanged.
+
+select , reject       =>   non-distructive
+select! , reject!     =>   destructive
+
+NON DESTRUCTIVE SELECT :
+
+arr = [34, 41, 31, 14, 25]
+puts arr.select { |a| a > 30}
+puts "\n"
+puts arr.reject { |a| a > 30}
+puts "\n"
+puts arr
+
+ruby test.rb
+34
+41
+31
+
+14
+25
+
+34
+41
+31
+14
+25
+
+DESTRUCTIVE SELECT :
+
+arr = [34, 41, 31, 14, 25]
+puts arr.select! { |a| a > 30}
+puts "\n"
+puts arr.reject! { |a| a > 30}
+puts "\n"
+puts arr
+
+ ruby test.rb
+34
+41
+31
+
+
+
