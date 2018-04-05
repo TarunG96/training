@@ -1,0 +1,354 @@
+puts "program in execution"
+
+
+END   {
+	puts "programs has ended"
+      }
+BEGIN {
+	puts "program not started yet"
+      }
+
+ruby test.rb
+program not started yet
+program in execution
+programs has ended
+
+= begin
+This is a comment.
+This is a comment, too.
+This is a comment, too.
+I said that already.
+= end
+
+
+GLOBAAL VARIABLES : 
+
+puts "testing global variable"
+$global="i am global variable"
+class A
+   def   display
+      puts "value in class A is #$global"
+   end
+end
+
+class B
+   def   display2
+      puts "value in class B is #$global"
+   end
+end
+
+a1=A.new
+a1.display
+b1=B.new
+b1.display2
+
+ruby test.rb
+testing global variable
+value in class A is i am global variable
+value in class B is i am global variable
+
+
+CLASS VARIABLES :
+
+class Students
+   @@student_name="tarun"
+   def     self.get_name
+	   @@student_name
+   end
+end
+puts Students.get_name
+
+
+	** One major issue with class valriables is inhertitance.	
+	** When we set a class variable, it is set for the superclass and all of its subclasses.
+
+
+INSTANCE VARIABLES  :
+	** The value of an instant variable can be different for the inherited classes.
+	** They change from object to object.	
+
+CONSTANTS : 
+class Example
+   VAR1 = 100
+   VAR2 = 200
+   def show
+      puts "Value of first Constant is #{VAR1}"
+      puts "Value of second Constant is #{VAR2}"
+   end
+end
+object = Example.new()
+object.show
+
+ruby test.rb
+Value of first Constant is 100
+Value of second Constant is 200
+
+** We can substitute the value of any ruby expression into a string using #{ }.
+puts "addition value #{20+30}"
+
+ruby test.rb
+addition value 50
+
+DEFINED? OPERATOR :
+
+a=10
+puts defined? a
+puts defined? puts
+puts defined? super
+
+ruby test.rb
+local-variable
+method
+#nil
+
+***** Largest of three numbers
+
+puts "enter three numbers"
+a=gets.chomp.to_i
+b=gets.chomp.to_i
+c=gets.chomp.to_i
+
+if a>b && a>c
+   puts "a is largest"
+ elsif b>a && b>c
+   puts "b is largest"
+ elsif c>a && c>a
+   puts "c is largest"
+end
+
+ruby test.rb
+enter three numbers
+453
+234
+356
+a is largest
+
+WhILE LOOP :
+
+puts "enter the limit"
+limit=gets.chomp.to_i
+i=0
+while i <=limit do
+   puts i
+   i+=1	
+end
+
+ruby test.rb
+enter the limit
+5
+0
+1
+2
+3
+4
+5
+
+FOR LOOP : 
+
+puts "enter the limit"
+limit=gets.chomp.to_i
+i=0
+for i in 0..limit do
+   puts i
+   i+=1	
+end
+
+ruby test.rb
+enter the limit
+3
+0
+1
+2
+3
+
+EACH LOOP :
+(0..5).each do |i|
+   		 puts i
+	    end 
+
+ruby test.rb
+0
+1
+2
+3
+4
+5
+
+****** FACTORIAL of a number
+
+puts "enter the number"
+num=gets.chomp.to_i
+fact=1
+for i in 1..num do
+   fact*=i
+end
+puts fact
+   
+ruby test.rb
+enter the number
+5
+120
+
+****** FIBBONACI series
+
+puts "enter the limit of the series you want"
+lim=gets.chomp.to_i
+a=0
+b=1
+for i in 0..lim do
+   puts a
+   c=a+b
+   a=b
+   b=c
+end
+
+ruby test.rb
+enter the limit of the series you want
+10
+0
+1
+1
+2
+3
+5
+8
+13
+21
+34
+55
+
+****** SUM OF DIGITS 
+
+puts "enter the number"
+a=gets.chomp.to_i 
+$sum=0
+while a >0 do
+   x=a%10
+   $sum+=x
+   a=a/10
+end
+puts "sum of digits is" 
+puts ($sum)
+
+ruby test.rb
+enter the number
+34423
+sum of digits is
+16
+
+****** PALINDROME NUMBER 
+
+puts "enter the number"
+a=gets.chomp.to_i 
+rev=0
+while a>0 do
+   x = a%10
+   rev = (rev*10)+x
+   a=a/10
+end
+puts rev	
+if rev==a then
+   puts "it is a palindrome number"
+end
+else
+   puts "not a palindrome number"
+end
+
+ruby test.rb
+enter the number
+5423523
+3253245
+not a palindrome number
+
+
+****** ARMSTRONG NUMBER 
+
+puts "enter the number"
+a=gets.chomp.to_i 
+count=0
+x=a
+sum=0
+while x>0 do
+   x/=10
+   count+=1
+end
+while a>0 do
+   y=a%10
+   sum=sum+(y**count)
+   a/=10
+end
+puts sum
+
+if a = sum then
+   puts "armstrong number"
+else
+   puts "not armstrong number"
+end
+
+ruby test.rb
+enter the number
+153
+153
+armstrong number
+
+****** CALCULATOR 
+
+puts "A SIMPLE CALCULATOR "
+   puts "enter two numbers"
+   value1=gets.chomp.to_f
+   value2=gets.chomp.to_f
+   puts"Enter your choice"
+   puts"1. ADDITION"
+   puts"2. SUBTRACTION"
+   puts"3. MULTIPLICATION"
+   puts"4. DIVISION"
+   choice=gets.chomp.to_i
+   case choice
+   when 1
+      res=value1+value2
+      puts(res)
+   when 2
+      res=value1-value2
+      puts (res)
+   when 3
+      res=value1*value2   
+      puts (res)
+   when 4
+      res=value1/value2
+      puts (res)
+   else
+      puts"invalid choice"
+      end
+
+ruby test.rb
+A SIMPLE CALCULATOR 
+enter two numbers
+1234
+2342
+Enter your choice
+1. ADDITION
+2. SUBTRACTION
+3. MULTIPLICATION
+4. DIVISION
+1
+3576.0
+
+********** PATTERN PROGRAMS 
+
+for row in 0..5 do
+   for col in 0..row do
+       print "*"
+   end
+  print "\n"
+end
+   
+ruby test.rb
+*
+**
+***
+****
+*****
+******
+
+
+
