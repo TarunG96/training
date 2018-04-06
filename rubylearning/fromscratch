@@ -21,7 +21,7 @@ I said that already.
 = end
 
 
-GLOBAAL VARIABLES : 
+**GLOBAAL VARIABLES : 
 
 puts "testing global variable"
 $global="i am global variable"
@@ -48,7 +48,7 @@ value in class A is i am global variable
 value in class B is i am global variable
 
 
-CLASS VARIABLES :
+**CLASS VARIABLES :
 
 class Students
    @@student_name="tarun"
@@ -63,11 +63,11 @@ puts Students.get_name
 	** When we set a class variable, it is set for the superclass and all of its subclasses.
 
 
-INSTANCE VARIABLES  :
+**INSTANCE VARIABLES  :
 	** The value of an instant variable can be different for the inherited classes.
 	** They change from object to object.	
 
-CONSTANTS : 
+**CONSTANTS : 
 class Example
    VAR1 = 100
    VAR2 = 200
@@ -89,7 +89,7 @@ puts "addition value #{20+30}"
 ruby test.rb
 addition value 50
 
-DEFINED? OPERATOR :
+**DEFINED? OPERATOR :
 
 a=10
 puts defined? a
@@ -350,5 +350,551 @@ ruby test.rb
 *****
 ******
 
+**METHODS : 
+
+class A
+def method (a,b)
+   puts a
+   puts b
+end
+end
+a1=A.new
+a1.method(2,3)
+
+ruby test.rb
+2
+3
+
+**METHOD WITH RETURN STATEMENT 
+
+class A
+def method (a,b)
+   a
+   b
+   return a,b
+end
+end
+a1=A.new
+puts a1.method(2,3)
+puts a1.method(2,3).class	
+
+ruby test.rb
+2
+3
+Array
+
+**METHOD WITH VARIABLE NO OF PARAMETERS
+
+class A
+def method (*names)
+   puts "total no of paramteres passed are #{names.length}"
+   return names
+end
+end
+a1=A.new
+puts a1.method(2,3,45)
+puts a1.method("tarun","garg")
+
+ruby test.rb
+total no of paramteres passed are 3
+2
+3
+45
+total no of paramteres passed are 2
+tarun
+garg
+
+** PASSING METHODS AS PARAMTERS 
+
+def add(x,y)
+   return x+y
+end
+def sub(x,y)
+   return x-y
+end
+def mul(x,y)
+   return x*y
+end
+puts mul(add(20,30),sub(45,20))
+
+ruby test.rb
+1250
+
+def add(x,y)
+   return x+y
+end
+def sub(x,y)
+   return x-y
+end
+def mul(x,y)
+   return x*y
+end
+puts add(mul(2,3),mul(add(4,5),sub(6,2)))   
+
+ruby test.rb
+42
+
+** RECURSION
+
+def add(x)
+   puts x*2
+   if x<10 
+   add(x+2)	
+   end
+end
+add(11)
+add(8)
+
+ruby test.rb
+22
+16
+20
+
+***** ARRAYS ******
+
+ITERATING OVER ARRAYS	:	
+-> EACH METHOD	: Array has an 'each' method which decides what element should be iterated over and how. In case of Array's each 			  all elements in the Array instance are yielded to supplied block in sequence.
+		* Each method takes two arguments - an element and a block.
+		* The element contained inside the block is similar to a placeholder used in the block to represent each element of the array 			  in turn.
+		* Block is the line of code that is executed on each of the array items.
+
+arr = [1, 2, 3, 4, 5]
+arr.each { |a| puts a+=3}
+
+ruby test.rb
+4
+5
+6
+7
+8
+
+-> REVERSE_EACH METHOD	:   It will iterate over the array elements in reverse order.
+
+-> MAP METHOD	:	It will create a new array based on oeiginal array but with values modified by the supplied block.
+
+arr = [1, 2, 3, 4, 5]
+arr.map{ |a| puts a+=3}
+puts arr
+
+ruby test.rb
+4
+5
+6
+7
+8
+1
+2
+3
+4
+5
+
+SELECTING ITEMS from an Array : 
+
+-> DESTRUCTIVE METHOD		:	modifies the array on which the method is called on.
+-> NON DESTRUCTIVE METHOD	:	returns a new array with selected items and leaves the oroginal array unchanged.
+
+select , reject       =>   non-distructive
+select! , reject!     =>   destructive
+
+NON DESTRUCTIVE SELECT :
+
+arr = [34, 41, 31, 14, 25]
+puts arr.select { |a| a > 30}
+puts "\n"
+puts arr.reject { |a| a > 30}
+puts "\n"
+puts arr
+
+ruby test.rb
+34
+41
+31
+
+14
+25
+
+34
+41
+31
+14
+25
+
+DESTRUCTIVE SELECT :
+
+arr = [34, 41, 31, 14, 25]
+puts arr.select! { |a| a > 30}
+puts "\n"
+puts arr.reject! { |a| a > 30}
+puts "\n"
+puts arr
+
+ ruby test.rb
+34
+41
+31
 
 
+PUBLIC CLASS METHODS	:	[]*args    =>   returns a new array populated with the given objects.
+
+puts Array['2','hello']
+puts "\n"
+puts [1,'sad','34']
+puts "\n"
+puts Array.[](3,'bye')
+
+ruby test.rb
+2
+hello
+
+1
+sad
+34
+
+3
+bye
+
+
+-> Passing array as paramter 
+	first = ["tarun","garg"]
+	second = Array.new(first)
+	puts first .eql? second
+
+	ruby test.rb
+	true
+
+->	new(size) {|index| block }	:   Here, an array of given size is created. Each element in this array is created by passing the 						    element's indeex to the given block and storing the return value.
+	second = Array.new(3){|index| index*3}
+	puts second
+	
+	ruby test.rb
+	0
+	3
+	6
+
+-> try_convert(obj)	:	this method tries to convert obj into array. It returns array on success and nil if the obj cannot be 					converted into arrat for any reason.
+
+		puts Array.try_convert([11])
+		puts Array.try_convert("12")
+
+	ruby test.rb
+	11
+			// nil 
+
+
+PUBLIC INSTANCE METHODS :	
+
+-> SET-INTERSECTION	:	Returns a new array containing the common elements in both arrays and excluding the duplicate ones.
+				The order is preserved from the oroginal array.
+
+-> array * int      =>   new array
+-> array * string   =>   new string
+
+puts [1,2,3] * 3
+puts [1,2,3] * "ad"
+
+ruby test.rb
+1
+2
+3
+1
+2
+3
+1
+2
+3
+1ad2ad3
+
+-> array1 + array2    =>    New Array
+-> array1 - array2    =>    New Array
+
+-> array1 <=> array2   =>    -1, 0, +1 or nil     // nil is returned if the two values are incomparable.
+		       ** Two arrays are equal iff both of same length and have exactly same elements of same value.
+-> array1 == array2    => returns boolean true or false
+
+-> array[index]         = obj 				=> obj
+-> array[start, length] = obj or other_array or nil 	=> obj or other_array or nil
+-> array[range]         = obj or other_array or nil 	=> obj or other_array or nil
+
+data = [1,2,3,"hello","tarun",6,"demo",9]
+data[0]="zero"
+data[2..4] = [2,3,4]
+data[6] = "six"
+puts data
+
+ruby test.rb
+zero
+2
+2
+3
+4
+6
+sixSearches through an array whose elements are also arrays comparing obj with the first element of each contained array using obj.==.
+
+Returns the first contained array that matches (that is, the first associated array), or nil if no match is found.
+
+
+9
+
+-> assoc(obj)	=>	new_array or nil : searches through an array whose elements are also arrays comparing obj with the first element of 						   each contained array using obj.==.	
+					   Returns the first contained array that matches (that is, the first associated array), or nil if no 						   match is found.
+
+array1 = [ "colors", "red", "blue", "green" ]
+array2 = [ "letters", "a", "b", "c" ]
+res = [ array1, array2]
+puts res.assoc("colors")  
+     
+ruby test.rb
+colors
+red
+blue
+green
+
+-> bsearch {|x| block } → element   : binary search : can be used in two cases : a find minimum mode and find any mode. In either case, the 					      elements of the array must be sorted.
+  In find minimum mode, the block must return true or false and there must be an index.
+
+array = [ 1,2,5,45,34,2,32,56 ]
+puts array.bsearch { |x| x>=20 }
+puts array.bsearch { |x| x<=20 }
+
+ruby test.rb
+45
+
+
+  In find any mode, the block must return a number and there must be two indices i and j (0<=i<=j<=array.size)
+  **he block returns a positive number for array if 0 <= k < i,
+  **the block returns zero for array if i <= k < j, and
+  **the block returns a negative number for array if j <= k < array.size.
+
+array = [ 1,2,5,45,34,2,32,56 ]
+puts array.bsearch { |x| x>20 ; x%7==0 }
+
+ruby test.rb
+56
+
+-> clear 	: removes all  elements from self.
+
+-> collect { |item| block }   =>   new array			collect   =>  enumerator
+    * invokes the given block once for each element of self. Creates a new array containing the values returned  by the block.
+
+-> combination(n) { |c| block }  =>	 array
+   combination(n)		 =>	 enumerator   : when invoked with a block, returns all combinations of length n from the array and 
+							then returns the array itself. The implementation makes no gurantee about the order in
+							which the combinaions are returned.
+
+		a = [ 1,2,5,4,6 ]
+		print a.combination(2).to_a
+		print "\n"
+		print a.combination(3).to_a
+	
+		ruby test.rb
+		[[1, 2], [1, 5], [1, 4], [1, 6], [2, 5], [2, 4], [2, 6], [5, 4], [5, 6], [4, 6]]
+		[[1, 2, 5], [1, 2, 4], [1, 2, 6], [1, 5, 4], [1, 5, 6], [1, 4, 6], [2, 5, 4], [2, 5, 6], [2, 4, 6], [5, 4, 6]]
+
+-> concat(array2)   =>  new array : concats the contents of array2 into the current array.
+-> count		:	returns the length of array.
+->count(obj)		:	counts and returns the no of elements with values equla to obj.
+->count {|item| block } :	counts and returns the no of elements for which the block returns true.
+
+-> cycle(n)		:	calls the given block for each element 'n' times or for forever if nil is given.
+
+a = [ 1,2,5,4,6 ]
+puts a.cycle(3) { |x| puts x }
+
+ruby test.rb
+1
+2
+5
+4
+6
+1
+2
+5
+4
+6
+1
+2
+5
+4
+6
+
+-> delete_at(index)	:	to delete an element at the particular index.
+
+-> delete_if { |item| block }    :   deletes every element from self for which block returns true.
+
+-> drop(n)		:	drop first n elements from the array.
+
+-> drop_while { |item| block }   :   drop elements upto(not including) the first elementr for which the block returns false.
+
+		a = [ 1,2,5,6 ]
+		puts a.drop_while {|x| x<5 }
+
+		ruby test.rb
+		5
+		6
+
+-> each_index { |index| block }	:	same as each but passes the index of element instead of element itself.
+
+-> fetch (index , default )	:	gives default value to element lying outside array bounds and prevents the error.
+-> fetch (index) { |index| block } :    will execute the block only if invalid index is referenced.
+
+-> fill (obj)	:	fills the array with object.
+
+	a = [ "a", "b", "c", "d" ]
+	puts a.fill("y", 0..1)  
+
+	ruby test.rb
+	y
+	y
+	c
+	d
+
+-> index (obj)		:	returns the index of the object in the array.
+-> index { |item| block } : 	returns the index of first element of the array for which block returns true.
+
+a = [ 12,234,23,43,14,56,45]
+puts a.index(43)
+puts a.index { |x| x ==234 }	
+
+ruby test.rb
+3
+1
+
+a = [ 1,2,5,6,34,25,123]
+puts a.first
+puts a.first(3)
+puts a.last(3)
+ruby test.rb
+
+1
+1
+2
+5
+34
+25
+123
+
+-> flatten / flatten(level) 
+
+a = [ 1,2,5,6,34]
+b=[4,52,8,[12,11]]
+a=[a,b,4,5]
+print "#{a.flatten} \n"
+print a.flatten(1)
+
+[1, 2, 5, 6, 34, 4, 52, 8, 12, 11, 4, 5] 
+[1, 2, 5, 6, 34, 4, 52, 8, [12, 11], 4, 5]
+
+-> flatten!
+
+b=[4,52,8,[12,11]]
+puts b.flatten!	
+
+ruby test.rb
+4
+52
+8
+12
+11
+
+-> freeze 	:	 to freeze an array
+-> frozen?	:	 returns true, if array is frozen.
+
+b=[4,52,8,[12,11]]
+b.freeze
+puts b.frozen?	
+
+ruby test.rb
+true
+
+-> replace(other_array)
+a=[4,52,8,[12,11]]
+print "#{a.replace([1,2,"hello",5])} \n"
+
+ruby test.rb
+[1, 2, "hello", 5] 
+
+-> to_s
+a=[4,52,8,[12,11]]
+
+-> join(seperator=$)
+a=["ab","bc","cd","ed","fg"]
+print "#{a.join}\n"
+print "#{a.join("--")}\n"
+
+ ruby test.rb
+abbccdedfg
+ab--bc--cd--ed--fg
+
+-> keep_if { |item| block }
+a=["ab","bc","cd","ed","fg"]
+print "#{a.keep_if {|i| i=="bc"}}\n"
+
+ruby test.rb
+["bc"]
+
+-> permutation / permutation(n) 
+a=[2,1,3,4,5]
+print "#{a.permutation(3).to_a}\n"
+
+ruby test.rb
+[[2, 1, 3], [2, 1, 4], [2, 1, 5], [2, 3, 1], [2, 3, 4], [2, 3, 5], [2, 4, 1], [2, 4, 3], [2, 4, 5], [2, 5, 1], [2, 5, 3], [2, 5, 4], [1, 2, 3], [1, 2, 4], [1, 2, 5], [1, 3, 2], [1, 3, 4], [1, 3, 5], [1, 4, 2], [1, 4, 3], [1, 4, 5], [1, 5, 2], [1, 5, 3], [1, 5, 4], [3, 2, 1], [3, 2, 4], [3, 2, 5], [3, 1, 2], [3, 1, 4], [3, 1, 5], [3, 4, 2], [3, 4, 1], [3, 4, 5], [3, 5, 2], [3, 5, 1], [3, 5, 4], [4, 2, 1], [4, 2, 3], [4, 2, 5], [4, 1, 2], [4, 1, 3], [4, 1, 5], [4, 3, 2], [4, 3, 1], [4, 3, 5], [4, 5, 2], [4, 5, 1], [4, 5, 3], [5, 2, 1], [5, 2, 3], [5, 2, 4], [5, 1, 2], [5, 1, 3], [5, 1, 4], [5, 3, 2], [5, 3, 1], [5, 3, 4], [5, 4, 2], [5, 4, 1], [5, 4, 3]]
+
+-> product(other_array)
+a=[2,1,3,4,5]
+print "#{ a.product([1,2])}\n"
+
+ruby test.rb
+[[2, 1], [2, 2], [1, 1], [1, 2], [3, 1], [3, 2], [4, 1], [4, 2], [5, 1], [5, 2]]
+
+-> rassoc(obj) 
+
+a = [ [ 1, "one"], [2, "two"], [3, "three"], ["ii", "two"] ]
+puts a.rassoc("two") 
+puts a.rassoc("3")
+
+ruby test.rb
+2
+two
+'nil'
+
+-> rindex(obj) 		:	searches forward
+ rindex {|item| block } :	searches backward
+
+a=[1,2,3,4,4,4,5]
+puts a.rindex(4)
+puts a.rindex {|x| x=4}
+
+ruby test.rb
+5
+6
+
+-> rotate(n) / rotate!(n) : 
+
+a=[1,2,3,4,4,4,5]
+print a.rotate(1)
+puts"\n"
+print  a.rotate(-1)
+puts "\n"
+
+ruby test.rb
+[2, 3, 4, 4, 4, 5, 1]
+[5, 1, 2, 3, 4, 4, 4]
+
+-> sample / sample(n)	:	select any random element(s) from the array.
+
+a=[1,2,3,4,4,4,5]
+print a.sample
+puts"\n"
+print  a.sample(3)
+puts "\n"
+
+ruby test.rb
+2
+[4, 1, 2]
+
+ruby test.rb
+4
+[4, 3, 4]
+
+-> shuffle	:	returns new array with shuffled elements.
+-> sort		:	returns new array with sorted elements.
