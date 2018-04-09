@@ -174,181 +174,6 @@ ruby test.rb
 4
 5
 
-****** FACTORIAL of a number
-
-puts "enter the number"
-num=gets.chomp.to_i
-fact=1
-for i in 1..num do
-   fact*=i
-end
-puts fact
-   
-ruby test.rb
-enter the number
-5
-120
-
-****** FIBBONACI series
-
-puts "enter the limit of the series you want"
-lim=gets.chomp.to_i
-a=0
-b=1
-for i in 0..lim do
-   puts a
-   c=a+b
-   a=b
-   b=c
-end
-
-ruby test.rb
-enter the limit of the series you want
-10
-0
-1
-1
-2
-3
-5
-8
-13
-21
-34
-55
-
-****** SUM OF DIGITS 
-
-puts "enter the number"
-a=gets.chomp.to_i 
-$sum=0
-while a >0 do
-   x=a%10
-   $sum+=x
-   a=a/10
-end
-puts "sum of digits is" 
-puts ($sum)
-
-ruby test.rb
-enter the number
-34423
-sum of digits is
-16
-
-****** PALINDROME NUMBER 
-
-puts "enter the number"
-a=gets.chomp.to_i 
-rev=0
-while a>0 do
-   x = a%10
-   rev = (rev*10)+x
-   a=a/10
-end
-puts rev	
-if rev==a then
-   puts "it is a palindrome number"
-end
-else
-   puts "not a palindrome number"
-end
-
-ruby test.rb
-enter the number
-5423523
-3253245
-not a palindrome number
-
-
-****** ARMSTRONG NUMBER 
-
-puts "enter the number"
-a=gets.chomp.to_i 
-count=0
-x=a
-sum=0
-while x>0 do
-   x/=10
-   count+=1
-end
-while a>0 do
-   y=a%10
-   sum=sum+(y**count)
-   a/=10
-end
-puts sum
-
-if a = sum then
-   puts "armstrong number"
-else
-   puts "not armstrong number"
-end
-
-ruby test.rb
-enter the number
-153
-153
-armstrong number
-
-****** CALCULATOR 
-
-puts "A SIMPLE CALCULATOR "
-   puts "enter two numbers"
-   value1=gets.chomp.to_f
-   value2=gets.chomp.to_f
-   puts"Enter your choice"
-   puts"1. ADDITION"
-   puts"2. SUBTRACTION"
-   puts"3. MULTIPLICATION"
-   puts"4. DIVISION"
-   choice=gets.chomp.to_i
-   case choice
-   when 1
-      res=value1+value2
-      puts(res)
-   when 2
-      res=value1-value2
-      puts (res)
-   when 3
-      res=value1*value2   
-      puts (res)
-   when 4
-      res=value1/value2
-      puts (res)
-   else
-      puts"invalid choice"
-      end
-
-ruby test.rb
-A SIMPLE CALCULATOR 
-enter two numbers
-1234
-2342
-Enter your choice
-1. ADDITION
-2. SUBTRACTION
-3. MULTIPLICATION
-4. DIVISION
-1
-3576.0
-
-********** PATTERN PROGRAMS 
-
-for row in 0..5 do
-   for col in 0..row do
-       print "*"
-   end
-  print "\n"
-end
-   
-ruby test.rb
-*
-**
-***
-****
-*****
-******
 
 **METHODS : 
 
@@ -898,3 +723,157 @@ ruby test.rb
 
 -> shuffle	:	returns new array with shuffled elements.
 -> sort		:	returns new array with sorted elements.
+
+****** STRINGS :   
+
+a="hello my name is tarun"
+puts a.length
+puts a["my"]
+puts a["name"]
+puts a[0]
+puts a[10]
+puts a[0..6]
+puts a[0..a.length]
+puts a[-2]
+puts a[-4..a.length]
+
+ruby test.rb
+22
+my
+name
+h
+a
+hello m
+hello my name is tarun
+u
+arun
+
+MULTILINE STRINGS :
+puts "a
+ab
+abc"
+
+puts %/ h
+ell
+o/
+
+ruby test.rb
+a
+ab
+abc
+ h
+ell
+o
+
+
+CONCATENATING STRINGS : 
+
+puts "hello"+" "+"tarun"
+puts "hello" " " "tarun"
+puts "hello"<< " "<< "tarun"
+puts "hello".concat(" ").concat("tarun")
+
+ruby test.rb
+hello tarun
+hello tarun
+hello tarun
+hello tarun
+
+COMPARING STRINGS  :
+
+puts "abc"=="abc"
+puts "abc"=="ABC"
+puts "123"=="321"
+puts "------"
+puts "abc".eql?"abc"
+puts "abc".eql?"ABC"
+puts "123".eql?"321"
+puts "------"
+puts "abc".casecmp"abc"
+puts "abc".casecmp"ABC"
+puts "123".casecmp"321"
+
+ruby test.rb
+true
+false
+false
+------
+true
+false
+false
+------
+0
+0
+-1
+
+-> Center(width,padstr="")
+
+a="hello"
+puts a.center(30,padstr="*")
+
+************hello*************
+
+Chop	:	returns string with the last character removed.
+
+a="hello"
+puts a.chop
+puts "tarun".chop
+puts "tarun\n\r".chop
+puts "tarun\r\n\r".chop
+puts "t".chop
+
+ruby test.rb
+hell
+taru
+tarun
+tarun
+'nil'
+ruby test.rb
+h*llo
+
+->	gsub(pattern, replacement)	:	all occurences of pattern replaced by replacemnt. pattern can be regular expression.
+->	gsub(pattern, hash)		:	if the matched text is one of the keys of hash, then its corresponding value replaces string.
+->	gsub(patttern){|match| block}	:	
+
+a="hello"
+puts a.gsub("e","*")
+puts a.gsub("ell","*")
+puts a.gsub(/[aeiou]/,"*")
+puts a.gsub(/[h][ae]/,"*")
+puts a.gsub(/[l]{2}/,"*")
+puts a.gsub(/[eo]/, 'e' => 3, 'o' => '*')
+puts a.gsub(/[a-z]/,"*")
+
+h*o
+h*ll*
+*llo
+he*o
+h3ll*
+*****
+
+-> hash 	:	returns a hash based on string length and values.
+-> index(substring/regexp [offset]) 
+
+a="hellov my name is tarun"
+puts a.index("o")
+puts a.index("ll")
+puts a.index(/[ta]/)
+puts a.index("a",12)
+
+ruby test.rb
+4
+2
+11
+19
+
+HASHES :
+
+a={"a"=>100,"s"=>200}
+b={"c"=>300,"s"=>400}
+b.merge(a)
+puts b.merge(a){|x,y,z| y-z }
+
+ruby test.rb
+{"c"=>300, "s"=>200, "a"=>100}
+
+
