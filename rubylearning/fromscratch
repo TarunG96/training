@@ -876,4 +876,136 @@ puts b.merge(a){|x,y,z| y-z }
 ruby test.rb
 {"c"=>300, "s"=>200, "a"=>100}
 
+********************************* DATE & TIME *****************************
+
+.inspect	:	get current date and time
+
+t=Time.new
+puts t.inspect
+
+ruby test.rb
+2018-04-10 14:52:12 +0530
+
+*** Getting components of date and time
+
+-> year		:	year of the date
+-> month 	:	month of the date
+-> day		:	day of the date
+-> wday		:	day of the week
+-> yday		:	day of the year
+-> hour		:	current hour (24 hour fromat)
+-> min		:	current minute
+-> sec		:	current second
+-> usec		: 	current second in microsecond
+-> zone		:	current time zone
+
+time=Time.new
+puts time.inspect
+puts time.year     
+puts time.month   
+puts time.day
+puts time.wday    
+puts time.yday    
+puts time.hour    
+puts time.min     
+puts time.sec     
+puts time.usec    
+puts time.zone    
+
+-> time.to_a	:	generate result as array
+
+-> We can use the Time object to get all information about timezones and daylight savings.
+
+ruby test.rb
+IST
+19800
+false
+false
+2018-04-10 15:54:26 +0530
+2018-04-10 10:24:26 UTC
+2018-04-10 15:54:26 +0530
+2018-04-10 10:24:26 UTC
+
+-> TIME FORMATTING DIRECTIVES : 
+
+		%a	:	The abbreviated weekday name (Sun).
+		%A	:	The full weekday name (Sunday).
+		%b	:	the abbreviated month name
+		%B	:	the full month name
+		%c	:	the preferred local date and time representation
+		%d	:	day of the month
+		%H	:	Hour of the day (24 hours format)
+		%I	:	Hour of the day (12 hours format)
+		%j	:	day of the year
+		%m	:	month of the year
+		%M	:	minute of the hour
+		%p	:	meridian indicator
+		%S	:	second of the minute
+		%U	:	week no of current year, start with 1st sunday as 1st day of 1st week.
+		%W	:	week no of current year, start with 1st monday as 1st day of 1st week
+		%w	:	day of the week
+		%x	:	preferred reprongc software jobsesentation of date alone, no time
+		%X	:	preferred representation of time alone, no date
+		%y	:	year without a century
+		%Y	:	year with century
+		%z	:	time zone name
+		%%	:	literal % character
+
+******************** EXCEPTIONAL HANDLING ****************
+
+When an exception is raised but not handled, global variable $! contains the current exception and $@ contains the current exception's backtrace.
+
+begin     
+    puts 'Before the raise.'     
+    raise 'An error occured.'     
+    puts 'After the raise.'     
+  rescue     
+    puts 'Code rescued.'     
+end     
+
+
+'The Exception class defines two methods that return details about the exception. The message method returns a string that define the explanation of error. The backtrace method returns an array of string that represent the call stack at that point where exception was raised.
+
+redo statement	:	code  from begin block
+
+begin   
+   x = Dir.mkdir "alreadyExist"   
+   if x   
+      puts "Directory created"   
+   end   
+rescue   
+   y = "newDir"   
+   retry   
+end   
+
+ruby test.rb
+directory created
+
+-> ENSURE CLAUSE	:	always executed wheter exception is raised or not and is palced after the last rescue clause.
+
+begin   
+  raise 'Exception'   
+rescue Exception    
+  puts "e.message"   
+ # puts e.backtrace.inspect   
+ensure   
+  puts "The ensure code will always run"   
+end  	
+
+ruby test.rb
+e.message
+The ensure code will always run
+
+-> ELSE Clause	:	it is always presented after the rescue clause and before the ensure clause. If no exceptions are raised then only else  block is executed.
+
+
+-> Catch and throw are more faster than raise and rescue so they are more preferred.
+
+throw :lablename  
+#.. this  code will not be executed  
+catch :lablename do  
+#.. matching catch will be executed after a throw is encountered.  
+end  
+
+
 
