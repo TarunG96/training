@@ -1,0 +1,325 @@
+-------------------------------------- LOOPS PROGRAMMING PRACTICE------------------------
+****** FACTORIAL of a number
+
+puts "enter the number"
+num=gets.chomp.to_i
+fact=1
+for i in 1..num do
+   fact*=i
+end
+puts fact
+   
+ruby test.rb
+enter the number
+5
+120
+
+****** FIBBONACI series
+
+puts "enter the limit of the series you want"
+lim=gets.chomp.to_i
+a=0
+b=1
+for i in 0..lim do
+   puts a
+   c=a+b
+   a=b
+   b=c
+end
+
+ruby test.rb
+enter the limit of the series you want
+10
+0
+1
+1
+2
+3
+5
+8
+13
+21
+34
+55
+
+****** SUM OF DIGITS 
+
+puts "enter the number"
+a=gets.chomp.to_i 
+$sum=0
+while a >0 do
+   x=a%10
+   $sum+=x
+   a=a/10
+end
+puts "sum of digits is" 
+puts ($sum)
+
+ruby test.rb
+enter the number
+34423
+sum of digits is
+16
+
+****** PALINDROME NUMBER 
+
+puts "enter the number"
+a=gets.chomp.to_i 
+rev=0
+while a>0 do
+   x = a%10
+   rev = (rev*10)+x
+   a=a/10
+end
+puts rev	
+if rev==a then
+   puts "it is a palindrome number"
+end
+else
+   puts "not a palindrome number"
+end
+
+ruby test.rb
+enter the number
+5423523
+3253245
+not a palindrome number
+
+
+****** ARMSTRONG NUMBER 
+
+puts "enter the number"
+a=gets.chomp.to_i 
+count=0
+x=a
+sum=0
+while x>0 do
+   x/=10
+   count+=1
+end
+while a>0 do
+   y=a%10
+   sum=sum+(y**count)
+   a/=10
+end
+puts sum
+
+if a = sum then
+   puts "armstrong number"
+else
+   puts "not armstrong number"
+end
+
+ruby test.rb
+enter the number
+153
+153
+armstrong number
+
+****** CALCULATOR 
+
+puts "A SIMPLE CALCULATOR "
+   puts "enter two numbers"
+   value1=gets.chomp.to_f
+   value2=gets.chomp.to_f
+   puts"Enter your choice"
+   puts"1. ADDITION"
+   puts"2. SUBTRACTION"
+   puts"3. MULTIPLICATION"
+   puts"4. DIVISION"
+   choice=gets.chomp.to_i
+   case choice
+   when 1
+      res=value1+value2
+      puts(res)
+   when 2
+      res=value1-value2
+      puts (res)
+   when 3
+      res=value1*value2   
+      puts (res)
+   when 4
+      res=value1/value2
+      puts (res)
+   else
+      puts"invalid choice"
+      end
+
+ruby test.rb
+A SIMPLE CALCULATOR 
+enter two numbers
+1234
+2342
+Enter your choice
+1. ADDITION
+2. SUBTRACTION
+3. MULTIPLICATION
+4. DIVISION
+1
+3576.0
+
+********** PATTERN PROGRAMS 
+
+for row in 0..5 do
+   for col in 0..row do
+       print "*"
+   end
+  print "\n"
+end
+   
+ruby test.rb
+*
+**
+***
+****
+*****
+******
+
+-------------------------------------------ARRAY EXERCISES -----------------------------------------------
+
+**
+ How do you return the word "example" from the following array?
+   arr = [["test", "hello", "world"],["example", "mem"]
+
+=>  puts arr.assoc("example").first	
+
+**
+ What does each method return in the following example?
+   arr = [15, 7, 18, 5, 12, 8, 5, 1]
+1. arr.index(5)
+2. arr.index[5]
+3. arr[5]
+
+=>  1. 3
+    2. error
+    3. 8
+
+**** Calculating sum of array elements 
+
+arr = [15, 7, 18, 5, 12, 8, 5, 1]
+sum=0
+i=0
+while i<arr.length							#method 1
+    sum=sum+arr[i]
+    i+=1
+end
+puts sum
+
+arr = [15, 7, 18, 5, 12, 8, 5, 1]	
+sum=0
+arr.each{ |i| sum+=i }							#method 2
+puts sum
+
+arr = [15, 7, 18, 5, 12, 8, 5, 1]	
+sum=0									#method 3
+arr.each_index{ |i| sum+=arr[i] }
+puts sum		
+
+**** CAlculating total no of duplicates in an array
+
+arr = [15, 7,4,7,7,5,3]	
+puts (arr.count)-(arr.uniq.count)
+
+**** Program to merge two arrays and sort them in desceneding order 
+
+arr1 = [15, 7,4,7,7,5,3]	
+arr2 = [23,11,43,42]
+puts arr1.concat(arr2).sort { |x,y| y<=>x}
+
+**** FInd max num in array 
+
+arr = [15,7,4,71,7,5,3]	
+max=arr[0]
+arr.each_index{ |i| max=arr[i] if arr[i] > max}				#method 1
+puts max
+   
+arr = [150, 7,4,710,7,5,3,45]	
+i=1
+max=arr[0]
+while i < arr.length
+    if max < arr[i]							#method 2
+      max = arr[i]
+   
+    end
+    i+=1	
+end
+puts max
+   
+******************************** HASHES *********************************
+
+Suppose you have a hash h = {a:1, b:2, c:3, d:4}
+
+1. Get the value of key `:b`.
+
+2. Add to this hash the key:value pair `{e:5}`
+
+3. Remove all key:value pairs whose value is less than 3.5
+
+
+***arr = ['snow', 'winter', 'ice', 'slippery', 'salted roads', 'white trees']
+	remove all the values starting with s in the array.
+
+arr.delete_if {|i| i.start_with?('s')}
+
+
+****** 
+Write a Ruby program to find the larger between the first and last elements of an given array of integers and length 3. Replace all the other values to be that value. Return the changed array
+
+a=[11,32,423,12,23]
+max=a[0]
+if a[0] > a[-1]
+   max = a[0]
+else
+   max = a[-1]
+end
+puts a.fill(max)
+
+ ruby test.rb
+23
+23
+23
+23
+23
+
+*****
+Write a Ruby program to set 5 to 1 if there is a 3 immediately followed by a 4 in an given array of integers
+
+a=[11,3,4,23,1,5,3]
+x=a.index(3)
+if a.at(x+1)==4
+   if a.include?(5)
+      y=a.index(5)
+      a[y]='1'
+   else
+      print "5 is not in array"
+   end	
+end
+puts a
+
+ruby test.rb
+11
+3
+4
+23
+1
+1
+3
+
+a="   sdfdfsf   sdf sdf    "
+a.gsub(" ","")	: to remove all the white spaces in string
+
+ Write a Ruby program to count the occurrences of a specified character in a given string.
+
+a="javascript is my name hello i am tarun"
+c=0
+puts "which character you want to check?"
+x=gets.chomp.to_s
+a.each_char {|i| c+=1 if i==x}
+puts c
+
+ruby test.rb
+which character you want to check?
+a
+5
+
+
