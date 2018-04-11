@@ -1007,5 +1007,41 @@ catch :lablename do
 #.. matching catch will be executed after a throw is encountered.  
 end  
 
+******************************* FILE HANDLING *************************************
+
+-> Creating 	:	File.new("file_name","modifier")
+modifiers 	:	r / w / w+ / a+
+
+File.new("demo.txt","w+")
+
+
+irb
+2.4.2 :001 > a=File.open("demo.txt","a+") 
+ => #<File:demo.txt> 
+2.4.2 :002 > a.puts("this is next line")
+ => nil 
+2.4.2 :003 > a.close
+ => nil 
+2.4.2 :004 > File.read("demo.txt")
+ => "this is appended line\nthis is next line\n" 
+2.4.2 :005 > 
+
+
+require 'csv'
+require 'byebug'
+file = CSV.read('fst.csv')
+CSV.foreach('fst.csv') do |row|
+  puts row.inspect
+end
+byebug
+
+
+require 'spreadsheet'
+book = Spreadsheet::Workbook.new
+sheet1=book.create_worksheet
+sheet1.row(0).concat %w{ name, age}
+sheet1.row(1).push 'tarun','22' 
+sheet1.row(1).push 'tarun','21'
+book.write 'asdf.xls'
 
 
