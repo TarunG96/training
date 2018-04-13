@@ -323,3 +323,53 @@ a
 5
 
 
+***** max of array 
+def  max(arr)
+  max=0
+  arr.each{|i| max=i if i>max }
+  return max
+end
+puts "enter length of array"
+n=gets.chomp.to_i
+a=Array.new(n)
+puts "enter elements one bye one"
+for i in 0..n do
+  a[i]=gets.chomp.to_i
+end 
+puts "maximum is #{max(a)}"
+
+
+#***** Adding two arrays using rotate
+
+def sum(arr1,arr2)
+  i=0
+  n=arr1.length
+  c=Array.new(n)    
+  temp=Array.new(n)
+  temp=arr2.rotate(2)
+  for i in 0..n do
+    c[i] = arr1[i] + temp[i]
+  end 
+  return c
+end
+puts 'enter length of 1st array'
+n=gets.chomp.to_i
+puts 'enter the array'
+a=Array.new(n)
+for i in 0..n do
+  a[i]=gets.chomp.to_i
+end 
+puts 'enter length of second array'
+m=gets.chomp.to_i
+puts 'enter the array'
+b=Array.new(m)
+for i in 0..m do
+  b[i]=gets.chomp.to_i
+end 
+if a.length == b.length
+  puts "sum is #{sum(a,b)}"
+else
+  puts "size of array should be same for addition"
+end
+
+
