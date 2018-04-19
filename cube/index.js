@@ -1,21 +1,12 @@
-
-		function X(slider_value,ka,kb)
+		function X(slider_value,ka,kb,rx,ry,rz)
 		{
 			s=slider_value/10;
 			s11=ka/10;
 			s12=kb/10;
-			document.getElementById("shape").style.WebkitTransform = ("scaleX("+s+") scaleY("+s11+") scaleZ("+s12+")");
-			retrun 
+			rx=rx*8;
+			ry=ry*8;
+			rz=rz*8;
+			document.getElementById("shape").style.WebkitTransform = ("scaleX("+s+") scaleY("+s11+") scaleZ("+s12+") rotateX("+rx+"deg) rotateY("+ry+"deg) rotateZ("+rz+"deg)");
+
 		}
 				
-		function changeScale(newScale)
-		{
-			
-
-			var deg=newScale*4;
-    		document.getElementById("shape").style.WebkitTransform = "rotateX("+deg+"deg)";
-    		document.getElementById("shape").style.WebkitTransform = "rotateY("+deg+"deg)";
-    		document.getElementById("shape").style.WebkitTransform = "rotateZ("+deg+"deg)";
-		}		
-			
-			

@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Cube</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+      <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div>
+	<div id="container">
+		    <div class="row">
+		        <div class='col-md-3'>
+			<div class="btn-group-wraper" style="padding: 20px;
+    border: 2px solid black;">
+				<div class="slidecontainer">Change Length
+  					<input type="range" min="1" max="100" value="10" class="slider" id="myslider" onchange="X(document.getElementById('myslider').value,document.getElementById('myslider1').value,document.getElementById('myslider2').value,document.getElementById('myslider3').value,document.getElementById('myslider4').value,document.getElementById('myslider5').value)"/>
+				</div>
+				<div class="slidecontainer">Change Height
+  					<input type="range" min="1" max="100" value="10" class="slider" id="myslider1" onchange="X(document.getElementById('myslider').value,document.getElementById('myslider1').value,document.getElementById('myslider2').value,document.getElementById('myslider3').value,document.getElementById('myslider4').value,document.getElementById('myslider5').value)"/>
+				</div>
+				<div class="slidecontainer">Change Depth
+  					<input type="range" min="1" max="100" value="10" class="slider" id="myslider2" onchange="X(document.getElementById('myslider').value,document.getElementById('myslider1').value,document.getElementById('myslider2').value,document.getElementById('myslider3').value,document.getElementById('myslider4').value,document.getElementById('myslider5').value)"/>
+				</div>
+				<div class="slidecontainer">Change X Rotation 
+  					<input type="range" min="1" max="100" value="0" class="slider" id="myslider3" onchange="X(document.getElementById('myslider').value,document.getElementById('myslider1').value,document.getElementById('myslider2').value,document.getElementById('myslider3').value,document.getElementById('myslider4').value,document.getElementById('myslider5').value)"/>
+				</div>
+				<div class="slidecontainer">Change Y Rotation
+  					<input type="range" min="1" max="100" value="0" class="slider" id="myslider4" onchange="X(document.getElementById('myslider').value,document.getElementById('myslider1').value,document.getElementById('myslider2').value,document.getElementById('myslider3').value,document.getElementById('myslider4').value,document.getElementById('myslider5').value)"/>
+				</div>
+				<div class="slidecontainer">Change Z Rotation
+  					<input type="range" min="1" max="100" value="0" class="slider" id="myslider5" onchange="X(document.getElementById('myslider').value,document.getElementById('myslider1').value,document.getElementById('myslider2').value,document.getElementById('myslider3').value,document.getElementById('myslider4').value,document.getElementById('myslider5').value)"/>
+				</div>
+				
+			</div>
+			</div>
+			<div class='col-md-9 text-center' style="padding-left:250px;">
+			<div id="shape">
+				<div class="ft"><a href="#!">1</a></div>
+				<div class="rt"><a href="#!">2</a></div>
+				<div class="bk"><a href="#!">3</a></div>
+				<div class="lt"><a href="#!">4</a></div>
+				<div class="tp"><a href="#!">5</a></div>
+				<div class="bm"><a href="#!">6</a></div>
+			</div>
+		</div>
+		</div>
+	</div>	
+	</div>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+  
+
+    <script  src="index.js"></script>
+
+
+
+
+</body>
+
+</html>
